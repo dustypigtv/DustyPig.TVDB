@@ -12,6 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DustyPig.TVDB.Tests", "DustyPig.TVDB.Tests\DustyPig.TVDB.Tests.csproj", "{4F79F9AC-C8D4-476D-9132-22B0D39D3DEC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{FFC7CE67-D8BF-438C-BFFE-843F7C66F8EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6CD5EFC5-D37D-47BA-B454-DA6E426DDE01}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\auto_build.yml = .github\workflows\auto_build.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +37,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FFC7CE67-D8BF-438C-BFFE-843F7C66F8EE} = {CC326613-566B-422D-8DDE-DE8BC5DD8CB8}
+		{6CD5EFC5-D37D-47BA-B454-DA6E426DDE01} = {FFC7CE67-D8BF-438C-BFFE-843F7C66F8EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2B10983-A990-4560-85A4-83C76DBFA5A2}
