@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DustyPig.REST" Version="3.0.0.2" />
+    <PackageReference Include="DustyPig.REST" Version="3.0.1.5" />
   </ItemGroup>
 
 
