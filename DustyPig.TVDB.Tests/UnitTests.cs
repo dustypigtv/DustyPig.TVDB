@@ -33,6 +33,9 @@ namespace DustyPig.TVDB.Tests
 
         private static async Task WaitForToken()
         {
+            Client.AutoThrowIfError = true;
+            Client.IncludeRawContentInResponse = true;
+
             while (!LoggedIn)
             {
                 if (!LoggingIn)

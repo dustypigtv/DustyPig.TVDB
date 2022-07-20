@@ -17,6 +17,18 @@ namespace DustyPig.TVDB
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
 
 
+        public static bool IncludeRawContentInResponse
+        {
+            get => _client.IncludeRawContentInResponse;
+            set => _client.IncludeRawContentInResponse = value;
+        }
+
+        public static bool AutoThrowIfError
+        {
+            get => _client.AutoThrowIfError;
+            set => _client.AutoThrowIfError = value;
+        }
+
 
         private async Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken)
         {
@@ -25,7 +37,10 @@ namespace DustyPig.TVDB
             {
                 Data = response.Success ? response.Data.Data : default,
                 Error = response.Error,
-                Success = response.Success
+                Success = response.Success,
+                StatusCode = response.StatusCode,
+                RawContent = response.RawContent,
+                ReasonPhrase = response.ReasonPhrase
             };
         }
 
@@ -37,12 +52,26 @@ namespace DustyPig.TVDB
             {
                 var lst = new List<T>();
                 page = 0;
+                var statusCode = System.Net.HttpStatusCode.BadRequest;
+                string reasonPhrase = null;
+                string rawContent = null;
 
                 while (true)
                 {
                     var response = await _client.GetAsync<InternalResponse<List<T>>>($"{fixUrl}page={page}", null, _headers, cancellationToken).ConfigureAwait(false);
                     if (!response.Success)
-                        return new Response<List<T>> { Error = response.Error };
+                        return new Response<List<T>>
+                        {
+                            Error = response.Error,
+                            StatusCode = response.StatusCode,
+                            RawContent = response.RawContent,
+                            ReasonPhrase = response.ReasonPhrase
+                        };
+
+                    statusCode = response.StatusCode;
+                    reasonPhrase = response.ReasonPhrase;
+                    if (_client.IncludeRawContentInResponse)
+                        rawContent += response.RawContent + "\r\n\r\n";
 
                     if (response.Data.Data != null)
                         lst.AddRange(response.Data.Data);
@@ -58,7 +87,10 @@ namespace DustyPig.TVDB
                 return new Response<List<T>>
                 {
                     Data = lst,
-                    Success = true
+                    Success = true,
+                    StatusCode = statusCode,
+                    ReasonPhrase = reasonPhrase,
+                    RawContent = _client.IncludeRawContentInResponse ? rawContent.Trim() : null
                 };
             }
             else
@@ -74,7 +106,10 @@ namespace DustyPig.TVDB
             {
                 Data = response.Success ? response.Data.Data : default,
                 Error = response.Error,
-                Success = response.Success
+                Success = response.Success,
+                RawContent = response.RawContent,
+                ReasonPhrase = response.ReasonPhrase,
+                StatusCode = response.StatusCode
             };
         }
 
@@ -368,13 +403,28 @@ namespace DustyPig.TVDB
             {
                 SeriesEpisodeData ret = null;
                 page = 0;
+                System.Net.HttpStatusCode statusCode = System.Net.HttpStatusCode.BadRequest;
+                string reasonPhrase = null;
+                string rawContent = null;
+
                 while (true)
                 {
                     string pageUrl = url + (url.Contains("?") ? "&" : "?") + $"page={page}";
 
                     var response = await _client.GetAsync<InternalResponse<SeriesEpisodeData>>(pageUrl, null, _headers, cancellationToken).ConfigureAwait(false);
                     if (!response.Success)
-                        return new Response<SeriesEpisodeData> { Error = response.Error };
+                        return new Response<SeriesEpisodeData>
+                        {
+                            Error = response.Error,
+                            RawContent = response.RawContent,
+                            ReasonPhrase = response.ReasonPhrase,
+                            StatusCode = response.StatusCode
+                        };
+
+                    statusCode = response.StatusCode;
+                    reasonPhrase = response.ReasonPhrase;
+                    if (_client.IncludeRawContentInResponse)
+                        rawContent += response.RawContent + "\r\n\r\n";
 
                     if (ret == null)
                         ret = response.Data.Data;
@@ -387,7 +437,18 @@ namespace DustyPig.TVDB
                         break;
                     page++;
                 }
-                return new Response<SeriesEpisodeData> { Success = true, Data = ret };
+
+                if (rawContent != null)
+                    rawContent = rawContent.Trim();
+
+                return new Response<SeriesEpisodeData> 
+                {
+                    Success = true, 
+                    Data = ret,
+                    StatusCode = statusCode,
+                    ReasonPhrase = reasonPhrase,
+                    RawContent = rawContent
+                };
             }
             else
             {
@@ -406,13 +467,28 @@ namespace DustyPig.TVDB
             {
                 SeriesEpisodeData ret = null;
                 page = 0;
+                System.Net.HttpStatusCode statusCode = System.Net.HttpStatusCode.BadRequest;
+                string reasonPhrase = null;
+                string rawContent = null;
+
                 while (true)
                 {
                     string pageUrl = url + (url.Contains("?") ? "&" : "?") + $"page={page}";
 
                     var response = await _client.GetAsync<InternalResponse<SeriesEpisodeData>>(pageUrl, null, _headers, cancellationToken).ConfigureAwait(false);
                     if (!response.Success)
-                        return new Response<SeriesEpisodeData> { Error = response.Error };
+                        return new Response<SeriesEpisodeData>
+                        {
+                            Error = response.Error,
+                            StatusCode = response.StatusCode,
+                            ReasonPhrase = response.ReasonPhrase,
+                            RawContent = response.RawContent
+                        };
+
+                    statusCode = response.StatusCode;
+                    reasonPhrase = response.ReasonPhrase;
+                    if (_client.IncludeRawContentInResponse)
+                        rawContent += response.RawContent + "\r\n\r\n";
 
                     if (ret == null)
                         ret = response.Data.Data;
@@ -425,7 +501,18 @@ namespace DustyPig.TVDB
                         break;
                     page++;
                 }
-                return new Response<SeriesEpisodeData> { Success = true, Data = ret };
+
+                if (rawContent != null)
+                    rawContent = rawContent.Trim();
+
+                return new Response<SeriesEpisodeData>
+                {
+                    Success = true,
+                    Data = ret,
+                    StatusCode = statusCode,
+                    ReasonPhrase = reasonPhrase,
+                    RawContent = rawContent
+                };
             }
             else
             {
