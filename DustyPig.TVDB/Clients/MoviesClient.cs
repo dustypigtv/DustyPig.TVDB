@@ -41,22 +41,7 @@ namespace DustyPig.TVDB.Clients
                 url += $"&genre={genre}";
             
             if (filterSort != null)
-            {
-                switch (filterSort)
-                {
-                    case FilterSort.Name:
-                        url += "&sort=name";
-                        break;
-
-                    case FilterSort.Score:
-                        url += "&sort=score";
-                        break;
-
-                    case FilterSort.FirstAired:
-                        url += "&sort=firstAired";
-                        break;
-                }
-            }
+                url += "&sort=" + filterSort.ConvertToString();
 
             if (status != null && status > 0 && status < 4)
                 url += $"&status={status}";

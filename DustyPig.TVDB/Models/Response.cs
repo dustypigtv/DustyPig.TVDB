@@ -3,7 +3,7 @@ using System;
 using System.Net;
 
 namespace DustyPig.TVDB.Models
-{
+{    
     public class Response<T>
     {
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
