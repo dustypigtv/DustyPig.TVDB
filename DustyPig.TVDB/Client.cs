@@ -25,14 +25,36 @@ namespace DustyPig.TVDB
         {
             _headers = new Dictionary<string, string>();
 
-            Authentication = new AuthenticationClient(this, _headers);
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
             ArtworkTypes = new ArtworkTypesClient(this);
+            Authentication = new AuthenticationClient(this, _headers);
+            AwardCategories = new AwardCategoriesClient(this);
             Awards = new AwardsClient(this);
+            Characters = new CharactersClient(this);
+            Companies = new CompaniesClient(this);
+            ContentRatings = new ContentRatingsClient(this);
+            Countries = new CountriesClient(this);
+            EntityTypes = new EntityTypesClient(this);
+            Episodes = new EpisodesClient(this);
+            Favorites = new FavoritesClient(this);
+            Genders = new GendersClient(this);
+            Genres = new GenresClient(this);
+            InspirationTypes = new InspirationTypesClient(this);
+            Languages = new LanguagesClient(this);
+            Lists = new ListsClient(this);
+            Movies = new MoviesClient(this);
+            MovieStatuses = new MovieStatusesClient(this);
+            People = new PeopleClient(this);
+            PeopleTypes = new PeopleTypesClient(this);
+            Search = new SearchClient(this);
+            Seasons = new SeasonsClient(this);
+            Series = new SeriesClient(this);
+            SeriesStatuses = new SeriesStatusesClient(this);
+            SourceTypes = new SourceTypesClient(this);
+            Updates = new UpdatesClient(this);
+            UserInfo = new UserInfoClient(this);
         }
-
-        public AuthenticationClient Authentication { get; }
 
         public ArtworkClient Artwork { get; }
 
@@ -40,7 +62,57 @@ namespace DustyPig.TVDB
 
         public ArtworkTypesClient ArtworkTypes { get; }
 
+        public AuthenticationClient Authentication { get; }
+
+        public AwardCategoriesClient AwardCategories { get; }
+
         public AwardsClient Awards { get; }
+
+        public CharactersClient Characters { get; }
+
+        public CompaniesClient Companies { get; }
+
+        public ContentRatingsClient ContentRatings { get; }
+
+        public CountriesClient Countries { get; }
+
+        public EntityTypesClient EntityTypes { get; }
+
+        public EpisodesClient Episodes { get; }
+
+        public FavoritesClient Favorites { get; }
+
+        public GendersClient Genders { get; }
+
+        public GenresClient Genres { get; }
+
+        public InspirationTypesClient InspirationTypes { get; }
+
+        public LanguagesClient Languages { get; }
+
+        public ListsClient Lists { get; }
+
+        public MoviesClient Movies { get; }
+
+        public MovieStatusesClient MovieStatuses { get; }
+
+        public PeopleClient People { get; }
+
+        public PeopleTypesClient PeopleTypes { get; }
+
+        public SearchClient Search { get; } 
+
+        public SeasonsClient Seasons { get; }
+
+        public SeriesClient Series { get; }
+
+        public SeriesStatusesClient SeriesStatuses { get; }
+
+        public SourceTypesClient SourceTypes { get; }
+
+        public UpdatesClient Updates { get; }
+
+        public UserInfoClient UserInfo { get; }
 
 
 
