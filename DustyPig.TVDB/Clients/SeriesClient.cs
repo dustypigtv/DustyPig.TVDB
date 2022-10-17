@@ -25,7 +25,7 @@ namespace DustyPig.TVDB.Clients
         /// </summary>
         public Task<Response<SeriesExtendedRecord>> GetArtworksAsync(int id, string lang = null, int? type = null, CancellationToken cancellationToken = default)
         {
-            string url = $"series{id}/artworks";
+            string url = $"series/{id}/artworks";
 
             if (!string.IsNullOrEmpty(lang))
                 url += (url.Contains("?") ? "&" : "?") + $"lang={Uri.EscapeDataString(lang)}";
@@ -67,23 +67,6 @@ namespace DustyPig.TVDB.Clients
                 url = Client.AddQuery(url, $"episodeNumber={episodeNumber}");
             if (!string.IsNullOrWhiteSpace(airDate))
                 url = Client.AddQuery(url, $"airDate={airDate}");
-
-            return _client.GetAsync<SeriesEpisodeData>(url, page, cancellationToken);
-        }
-
-        /// <summary>
-        /// Returns series episodes from the specified season type, default returns the episodes in the series default season type
-        /// </summary>
-        /// <param name="airDate">airDate of the episode, format is yyyy-mm-dd</param>
-        public Task<Response<SeriesEpisodeData>> GetEpisodesAsync(int id, SeasonTypes season_type = SeasonTypes.Default, int page = 0, int? season = null, int? episodeNumber = null, DateTime? airDate = null, CancellationToken cancellationToken = default)
-        {
-            string url = $"series/{id}/episodes/{season_type.ConvertToString()}";
-            if (season != null)
-                url += $"?season={season}";
-            if (episodeNumber != null)
-                url = Client.AddQuery(url, $"episodeNumber={episodeNumber}");
-            if (airDate != null)
-                url = Client.AddQuery(url, $"airDate={airDate.Value:yyyy-MM-dd}");
 
             return _client.GetAsync<SeriesEpisodeData>(url, page, cancellationToken);
         }

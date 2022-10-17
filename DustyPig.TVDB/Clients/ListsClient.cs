@@ -11,15 +11,15 @@ namespace DustyPig.TVDB.Clients
 
         internal ListsClient(Client client) => _client = client;
 
-        public Task<Response<List<ListBaseRecord>>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
-            _client.GetAsync<List<ListBaseRecord>>("lists", page, cancellationToken);
+        public Task<Response<List<List>>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
+            _client.GetAsync<List<List>>("lists", page, cancellationToken);
 
-        public Task<Response<ListBaseRecord>> GetAsync(int id, CancellationToken cancellationToken = default) =>
-            _client.GetAsync<ListBaseRecord>($"lists/{id}", cancellationToken);
+        public Task<Response<List>> GetAsync(int id, CancellationToken cancellationToken = default) =>
+            _client.GetAsync<List>($"lists/{id}", cancellationToken);
 
 
-        public Task<Response<ListBaseRecord>> GetAsync(string slug, CancellationToken cancellationToken = default) =>
-            _client.GetAsync<ListBaseRecord>($"lists/{slug}", cancellationToken);
+        public Task<Response<List>> GetAsync(string slug, CancellationToken cancellationToken = default) =>
+            _client.GetAsync<List>($"lists/{slug}", cancellationToken);
 
 
         public Task<Response<ListExtendedRecord>> GetExtendedAsync(int id, CancellationToken cancellationToken = default) =>

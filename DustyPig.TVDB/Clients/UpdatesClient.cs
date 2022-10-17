@@ -12,7 +12,7 @@ namespace DustyPig.TVDB.Clients
 
         internal UpdatesClient(Client client) => _client = client;
 
-        public Task<Response<List<EntityUpdate>>> GetUpdatesAsync(DateTime since, UpdateTypes? type = null, Models.Action? action = null, int page = 0, CancellationToken cancellationToken = default)
+        public Task<Response<List<EntityUpdate>>> GetAsync(DateTime since, UpdateTypes? type = null, Models.Action? action = null, int page = 0, CancellationToken cancellationToken = default)
         {
             string url = $"updates?since={since.ToUnixEpochTime()}";
             if (type != null)

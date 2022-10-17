@@ -20,6 +20,5 @@ namespace DustyPig.TVDB.Clients
 
         public Task<Response<Company>> GetAsync(int id, CancellationToken cancellationToken = default) =>
             _client.GetAsync<Company>($"companies/{id}", cancellationToken);
-
     }
 }

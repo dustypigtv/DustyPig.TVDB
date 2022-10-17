@@ -26,7 +26,7 @@ namespace DustyPig.TVDB.Models
 
         public int ThumbnailWidth { get; set; }
 
-        public long UpdatedAt { get; set; }
+        public long? UpdatedAt { get; set; }
 
         public int Width { get; set; }
     }

@@ -40,7 +40,10 @@ namespace DustyPig.TVDB.Models
 
         public string Overview { get; set; }
 
-        public List<TranslationSimple> Overviews { get; set; } = new List<TranslationSimple>();
+        /// <summary>
+        /// Key is language code, value is overview
+        /// </summary>
+        public Dictionary<string, string> Overviews { get; set; } = new Dictionary<string, string>();
 
         [JsonProperty("overview_translated")]
         public List<string> OverviewTranslated { get; set; } = new List<string>();
@@ -65,7 +68,11 @@ namespace DustyPig.TVDB.Models
 
         public string Thumbnail { get; set; }
 
-        public List<TranslationSimple> Translations { get; set; } = new List<TranslationSimple>();
+        /// <summary>
+        /// Key is language code, value is overview
+        /// </summary>
+        public Dictionary<string, string> Translations { get; set; } = new Dictionary<string, string>();
+
 
         public List<string> TranslationsWithLang { get; set; } = new List<string>();
 

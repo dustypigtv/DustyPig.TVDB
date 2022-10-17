@@ -122,6 +122,10 @@ namespace DustyPig.TVDB
         public bool AutoThrowIfError { get; set; }
 
 
+        private static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings 
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
 
 
         private static HttpRequestMessage CreateRequest(HttpMethod method, string url, IDictionary<string, string> headers, object data)
@@ -150,7 +154,7 @@ namespace DustyPig.TVDB
                 reasonPhrase = response.ReasonPhrase;
                 content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
-                var ret = JsonConvert.DeserializeObject<Response<T>>(content);
+                var ret = JsonConvert.DeserializeObject<Response<T>>(content, _jsonSerializerSettings);
                 ret.ReasonPhrase = reasonPhrase;
                 ret.Success = true;
                 ret.RawContent = IncludeRawContentInResponse ? content : null;
@@ -180,10 +184,10 @@ namespace DustyPig.TVDB
 
 
 
-        internal Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken = default) =>
+        internal Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken) =>
             GetResponseAsync<T>(HttpMethod.Get, subUrl, _headers, null, cancellationToken);
 
-        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken = default)
+        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken)
         {
             string pagedUrl = AddQuery(subUrl, $"page={page}");
             return GetResponseAsync<T>(HttpMethod.Get, pagedUrl, _headers, null, cancellationToken);
@@ -191,6 +195,10 @@ namespace DustyPig.TVDB
 
         internal Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken) =>
             GetResponseAsync<T>(HttpMethod.Post, subUrl, _headers, data, cancellationToken);
+
+
+
+
 
 
         internal static string AddQuery(string url, string q)

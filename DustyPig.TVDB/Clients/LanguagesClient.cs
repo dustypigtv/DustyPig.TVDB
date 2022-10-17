@@ -11,7 +11,7 @@ namespace DustyPig.TVDB.Clients
 
         internal LanguagesClient(Client client) => _client = client;
 
-        public Task<Response<List<Language>>> GetAllLanguagesAsync(CancellationToken cancellationToken = default) =>
+        public Task<Response<List<Language>>> GetAllAsync(CancellationToken cancellationToken = default) =>
             _client.GetAsync<List<Language>>("languages", cancellationToken);
 
     }

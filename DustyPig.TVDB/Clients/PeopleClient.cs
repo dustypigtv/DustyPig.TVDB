@@ -11,7 +11,7 @@ namespace DustyPig.TVDB.Clients
 
         internal PeopleClient(Client client) => _client = client;
 
-        public Task<Response<List<PeopleBaseRecord>>> GetAllAsync(int page, CancellationToken cancellationToken = default) =>
+        public Task<Response<List<PeopleBaseRecord>>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
             _client.GetAsync<List<PeopleBaseRecord>>("people", page, cancellationToken);
 
         public Task<Response<PeopleBaseRecord>> GetAsync(int id, CancellationToken cancellationToken = default) =>

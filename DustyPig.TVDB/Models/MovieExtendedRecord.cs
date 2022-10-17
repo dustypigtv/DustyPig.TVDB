@@ -19,7 +19,7 @@ namespace DustyPig.TVDB.Models
 
         public List<Character> Characters { get; set; } = new List<Character>();
 
-        public List<Company> Companies { get; set; } = new List<Company>();
+        public Companies Companies { get; set; }
 
         public List<ContentRating> ContentRatings { get; set; } = new List<ContentRating>();
 
@@ -30,7 +30,7 @@ namespace DustyPig.TVDB.Models
 
         public List<Inspiration> Inspirations { get; set; } = new List<Inspiration>();
 
-        public List<ListBaseRecord> Lists { get; set; } = new List<ListBaseRecord>();
+        public List<List> Lists { get; set; } = new List<List>();
 
         public string OriginalCountry { get; set; }
 

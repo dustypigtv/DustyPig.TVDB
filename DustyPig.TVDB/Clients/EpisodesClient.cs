@@ -1,4 +1,5 @@
 ﻿using DustyPig.TVDB.Models;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,8 +15,8 @@ namespace DustyPig.TVDB.Clients
         /// Returns a list of <see cref="EpisodeBaseRecord"/>s with the basic attributes.
         /// Note that all episodes are returned, even those that may not be included in a series' default season order.
         /// </summary>
-        public Task<Response<EpisodeBaseRecord>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
-            _client.GetAsync<EpisodeBaseRecord>("episodes", page, cancellationToken);
+        public Task<Response<List<EpisodeBaseRecord>>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
+            _client.GetAsync<List<EpisodeBaseRecord>>("episodes", page, cancellationToken);
 
 
         public Task<Response<EpisodeBaseRecord>> GetAsync(int id, CancellationToken cancellationToken = default) =>
@@ -38,6 +39,5 @@ namespace DustyPig.TVDB.Clients
 
         public Task<Response<Translation>> GetTranslationAsync(int id, string language, CancellationToken cancellationToken = default) =>
             _client.GetAsync<Translation>($"episodes/{id}/translations/{language}", cancellationToken);
-
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
-    public class ListBaseRecord
+    public class List
     {
         public List<Alias> Aliases { get; set; } = new List<Alias>();
 
