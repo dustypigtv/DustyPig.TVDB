@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace DustyPig.TVDB.Models
 {
     public class Inspiration
@@ -6,6 +8,7 @@ namespace DustyPig.TVDB.Models
 
         public string Type { get; set; }
 
+        [JsonProperty("type_name")]
         public string TypeName { get; set; }
 
         public string Url { get; set; }

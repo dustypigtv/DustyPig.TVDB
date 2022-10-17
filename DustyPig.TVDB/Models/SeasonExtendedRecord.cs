@@ -10,9 +10,8 @@ namespace DustyPig.TVDB.Models
 
         public List<Trailer> Trailers { get; set; } = new List<Trailer>();
 
-        public Companies Companies { get; set; } = new Companies();
-
         public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
-    }
 
+        public List<Translation> Translations { get; set; } = new List<Translation>();
+    }
 }

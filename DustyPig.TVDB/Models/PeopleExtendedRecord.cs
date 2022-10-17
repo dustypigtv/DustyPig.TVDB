@@ -22,7 +22,11 @@ namespace DustyPig.TVDB.Models
 
         public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
 
+        public string Slug { get; set; }
+
         public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
+
+        public TranslationExtended Translations { get; set; }
     }
 
 }

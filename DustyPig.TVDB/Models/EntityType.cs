@@ -6,7 +6,7 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public int SeriesId { get; set; }
+        public bool HasSpecials { get; set; }
     }
 
 }

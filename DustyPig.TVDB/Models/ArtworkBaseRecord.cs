@@ -13,6 +13,8 @@ namespace DustyPig.TVDB.Models
         public string Thumbnail { get; set; }
 
         public int Type { get; set; }
+
+        public int Height { get; set; }
     }
 
 }

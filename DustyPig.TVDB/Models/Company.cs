@@ -23,6 +23,10 @@ namespace DustyPig.TVDB.Models
         public int PrimaryCompanyType { get; set; }
 
         public string Slug { get; set; }
+
+        public ParentCompany ParentCompany { get; set; }
+
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
     }
 
 }

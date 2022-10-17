@@ -15,32 +15,57 @@ namespace DustyPig.TVDB.Models
 
         public string Director { get; set; }
 
-        public string ExtendedTitle { get; set; }
+        [JsonProperty("first_air_time")]
+        public string FirstAirTime { get; set; }
 
         public List<string> Genres { get; set; } = new List<string>();
 
         public string Id { get; set; }
 
+        [JsonProperty("image_url")]
         public string ImageUrl { get; set; }
 
         public string Name { get; set; }
 
+        [JsonProperty("is_official")]
+        public bool IsOfficial { get; set; }
+
         public string NameTranslated { get; set; }
+
+        public string Network { get; set; }
+
+        public string ObjectId { get; set; }
 
         public string OfficialList { get; set; }
 
         public string Overview { get; set; }
 
+        public List<TranslationSimple> Overviews { get; set; } = new List<TranslationSimple>();
+
         [JsonProperty("overview_translated")]
         public List<string> OverviewTranslated { get; set; } = new List<string>();
 
+        public string Poster { get; set; }
+
         public List<string> Posters { get; set; } = new List<string>();
 
+        [JsonProperty("primary_language")]
         public string PrimaryLanguage { get; set; }
 
-        public string PrimaryType { get; set; }
+        [JsonProperty("remote_ids")]
+        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
 
         public string Status { get; set; }
+
+        public string Slug { get; set; }
+
+        public List<string> Studios { get; set; } = new List<string>();
+
+        public string Title { get; set; }
+
+        public string Thumbnail { get; set; }
+
+        public List<TranslationSimple> Translations { get; set; } = new List<TranslationSimple>();
 
         public List<string> TranslationsWithLang { get; set; } = new List<string>();
 
@@ -50,22 +75,6 @@ namespace DustyPig.TVDB.Models
 
         public string Year { get; set; }
 
-        public string Thumbnail { get; set; }
-
-        public string Poster { get; set; }
-
-        public Dictionary<string, object> Translations { get; set; } = new Dictionary<string, object>();
-
-        [JsonProperty("is_official")]
-        public bool IsOfficial { get; set; }
-
-        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
-
-        public string Network { get; set; }
-
-        public string Title { get; set; }
-
-        public Dictionary<string, object> Overviews { get; set; } = new Dictionary<string, object>();
     }
 
 }

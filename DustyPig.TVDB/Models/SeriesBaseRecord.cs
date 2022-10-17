@@ -2,15 +2,20 @@ using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
+    /// <summary>
+    /// The base record for a series. All series airs time like firstAired, lastAired, nextAired, etc. are in US EST for US series, and for all non-US series, the time of the show’s country capital or most populous city. For streaming services, is the official release time. See https://support.thetvdb.com/kb/faq.php?id=29
+    /// </summary>
     public class SeriesBaseRecord
     {
-        public string Abbreviation { get; set; }
-
         public List<Alias> Aliases { get; set; } = new List<Alias>();
+
+        public int AverageRuntime { get; set; }
 
         public string Country { get; set; }
 
         public int DefaultSeasonType { get; set; }
+
+        public List<EpisodeBaseRecord> Episodes { get; set; } = new List<EpisodeBaseRecord>();
 
         public string FirstAired { get; set; }
 
@@ -21,6 +26,8 @@ namespace DustyPig.TVDB.Models
         public bool IsOrderRandomized { get; set; }
 
         public string LastAired { get; set; }
+
+        public string LastUpdated { get; set; }
 
         public string Name { get; set; }
 
@@ -39,6 +46,8 @@ namespace DustyPig.TVDB.Models
         public string Slug { get; set; }
 
         public Status Status { get; set; }
+
+        public string Year { get; set; }
     }
 
 }

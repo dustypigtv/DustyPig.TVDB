@@ -12,6 +12,10 @@ namespace DustyPig.TVDB.Models
 
         /// <summary>Only present for episodes records</summary>
         public int SeriesId { get; set; }
+
+        public int MergeToId { get; set; }
+
+        public string MergeToEntityType { get; set; }
     }
 
 }

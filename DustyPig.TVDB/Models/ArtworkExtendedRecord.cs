@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+
 namespace DustyPig.TVDB.Models
 {
     public class ArtworkExtendedRecord : ArtworkBaseRecord
     {
         public int EpisodeId { get; set; }
-
-        public int Height { get; set; }
 
         public int MovieId { get; set; }
 
@@ -17,6 +17,10 @@ namespace DustyPig.TVDB.Models
         public int SeriesId { get; set; }
 
         public int SeriesPeopleId { get; set; }
+
+        public ArtworkStatus Status { get; set; }
+
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
 
         public int ThumbnailHeight { get; set; }
 

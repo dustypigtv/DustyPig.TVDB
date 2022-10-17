@@ -4,15 +4,13 @@ namespace DustyPig.TVDB.Models
 {
     public class SeasonBaseRecord
     {
-        public string Abbreviation { get; set; }
-
-        public string Country { get; set; }
-
         public int Id { get; set; }
 
         public string Image { get; set; }
 
         public int ImageType { get; set; }
+
+        public string LastUpdated { get; set; }
 
         public string Name { get; set; }
 
@@ -22,11 +20,13 @@ namespace DustyPig.TVDB.Models
 
         public List<string> OverviewTranslations { get; set; } = new List<string>();
 
+        public Companies Companies { get; set; }
+
         public int SeriesId { get; set; }
 
-        public string Slug { get; set; }
-
         public SeasonType Type { get; set; }
+
+        public string Year { get; set; }
     }
 
 }

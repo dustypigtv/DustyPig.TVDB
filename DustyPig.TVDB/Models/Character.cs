@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
@@ -5,6 +6,8 @@ namespace DustyPig.TVDB.Models
     public class Character
     {
         public List<Alias> Aliases { get; set; } = new List<Alias>();
+
+        public RecordInfo Episode { get; set; }
 
         public int EpisodeId { get; set; }
 
@@ -16,6 +19,8 @@ namespace DustyPig.TVDB.Models
 
         public int MovieId { get; set; }
 
+        public RecordInfo Movie { get; set; }
+
         public string Name { get; set; }
 
         public List<string> NameTranslations { get; set; } = new List<string>();
@@ -24,9 +29,18 @@ namespace DustyPig.TVDB.Models
 
         public int PeopleId { get; set; }
 
+        [JsonProperty("personImgURL")]
+        public string PersonImageUrl { get; set; }
+
+        public string PeopleType { get; set; }
+
         public int SeriesId { get; set; }
 
+        public RecordInfo Series { get; set; }
+
         public int Sort { get; set; }
+
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
 
         public int Type { get; set; }
 

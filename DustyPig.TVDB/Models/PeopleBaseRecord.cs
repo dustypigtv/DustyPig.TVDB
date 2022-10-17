@@ -12,6 +12,10 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
+        public List<string> NameTranslations { get; set; } = new List<string>();
+
+        public List<string> OverviewTranslations { get; set; } = new List<string>();
+
         public int Score { get; set; }
     }
 

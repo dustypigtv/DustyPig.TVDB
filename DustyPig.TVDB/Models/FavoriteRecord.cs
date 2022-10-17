@@ -2,7 +2,7 @@
 
 namespace DustyPig.TVDB.Models
 {
-    public class NewFavorites
+    public class FavoriteRecord
     {
         [JsonProperty("series")]
         public int Series { get; set; }
