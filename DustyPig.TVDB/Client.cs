@@ -23,7 +23,7 @@ namespace DustyPig.TVDB
         public static bool AutoThrowIfError { get; set; }
 
 
-        private HttpRequestMessage CreateRequest(HttpMethod method, string url, IDictionary<string, string> headers, object data)
+        private static HttpRequestMessage CreateRequest(HttpMethod method, string url, IDictionary<string, string> headers, object data)
         {
             var request = new HttpRequestMessage(method, url);
             if (headers != null)
@@ -36,7 +36,7 @@ namespace DustyPig.TVDB
             return request;
         }
 
-        private async Task<Response<T>> GetResponseAsync<T>(HttpMethod method, string subUrl, IDictionary<string, string> headers, object data, CancellationToken cancellationToken)
+        private static async Task<Response<T>> GetResponseAsync<T>(HttpMethod method, string subUrl, IDictionary<string, string> headers, object data, CancellationToken cancellationToken)
         {
             string content = null;
             HttpStatusCode statusCode = HttpStatusCode.BadRequest;
@@ -77,16 +77,16 @@ namespace DustyPig.TVDB
 
 
 
-        private Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken = default) =>
+        internal Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken = default) =>
             GetResponseAsync<T>(HttpMethod.Get, subUrl, _headers, null, cancellationToken);
 
-        private Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken = default)
+        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken = default)
         {
             string pagedUrl = subUrl + (subUrl.Contains("?") ? "&" : "?") + $"&page={page}";
             return GetResponseAsync<T>(HttpMethod.Get, pagedUrl, _headers, null, cancellationToken);
         }
 
-        private Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken) =>
+        internal Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken) =>
             GetResponseAsync<T>(HttpMethod.Post, subUrl, _headers, data, cancellationToken);
         
 
@@ -101,7 +101,9 @@ namespace DustyPig.TVDB
         }
 
 
-        /// <summary>create an auth token. The token has one month valition length. If successfull, this automatically calls <see cref="SetAuthToken(string)"/></summary>
+        /// <summary>
+        /// Create an auth token. The token has one month valition length. If successfull, this automatically calls <see cref="SetAuthToken(string)"/>
+        /// </summary>
         public async Task<Response<BearerToken>> LoginAsync(Credentials credentials, CancellationToken cancellationToken = default)
         {
             _headers.Clear();
@@ -323,28 +325,23 @@ namespace DustyPig.TVDB
         public Task<Response<List<SourceType>>> GetAllSourceTypesAsync(CancellationToken cancellationToken = default) =>
             GetAsync<List<SourceType>>("sources/types", cancellationToken);
 
-
-        /// <param name="page">Page to retrieve</param>
+        
         public Task<Response<List<Company>>> GetAllCompaniesAsync(int page = 0, CancellationToken cancellationToken = default) =>
             GetAsync<List<Company>>("companies", page, cancellationToken);
 
 
-        /// <param name="page">Page to retrieve</param>
         public Task<Response<List<ListBaseRecord>>> GetAllListsAsync(int page = 0, CancellationToken cancellationToken = default) =>
             GetAsync<List<ListBaseRecord>>("lists", page, cancellationToken);
 
 
-        /// <param name="page">Page to retrieve</param>
         public Task<Response<List<MovieBaseRecord>>> GetAllMovieAsync(int page = 0, CancellationToken cancellationToken = default) =>
             GetAsync<List<MovieBaseRecord>>("movies", page, cancellationToken);
 
 
-        /// <param name="page">Page to retrieve</param>
         public Task<Response<List<SeasonBaseRecord>>> GetAllSeasonsAsync(int page = 0, CancellationToken cancellationToken = default) =>
             GetAsync<List<SeasonBaseRecord>>("seasons", page, cancellationToken);
 
 
-        /// <param name="page">Page to retrieve</param>
         public Task<Response<List<SeriesBaseRecord>>> GetAllSeriesAsync(int page = 0, CancellationToken cancellationToken = default) =>
             GetAsync<List<SeriesBaseRecord>>("series", page, cancellationToken);
 
