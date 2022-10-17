@@ -11,10 +11,8 @@ namespace DustyPig.TVDB.Clients
 
         internal AwardsClient(Client client) => _client = client;
 
-
         public Task<Response<List<AwardBaseRecord>>> GetAllAsync(CancellationToken cancellationToken = default) =>
             _client.GetAsync<List<AwardBaseRecord>>("awards", cancellationToken);
-
 
         public Task<Response<AwardBaseRecord>> GetAsync(int id, CancellationToken cancellationToken = default) =>
             _client.GetAsync<AwardBaseRecord>($"awards/{id}", cancellationToken);

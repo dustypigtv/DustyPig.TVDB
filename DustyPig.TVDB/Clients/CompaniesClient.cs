@@ -18,7 +18,6 @@ namespace DustyPig.TVDB.Clients
         public Task<Response<List<CompanyType>>> GetAllTypesAsync(CancellationToken cancellationToken = default) =>
             _client.GetAsync<List<CompanyType>>("companies/types", cancellationToken);
 
-
         public Task<Response<Company>> GetAsync(int id, CancellationToken cancellationToken = default) =>
             _client.GetAsync<Company>($"companies/{id}", cancellationToken);
 

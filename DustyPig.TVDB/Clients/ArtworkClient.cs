@@ -13,7 +13,6 @@ namespace DustyPig.TVDB.Clients
         public Task<Response<ArtworkBaseRecord>> GetAsync(int id, CancellationToken cancellationToken = default) =>
             _client.GetAsync<ArtworkBaseRecord>($"artwork/{id}", cancellationToken);
 
-
         public Task<Response<ArtworkExtendedRecord>> GetExtendedAsync(int id, CancellationToken cancellationToken = default) =>
             _client.GetAsync<ArtworkExtendedRecord>($"artwork/{id}/extended", cancellationToken);
     }

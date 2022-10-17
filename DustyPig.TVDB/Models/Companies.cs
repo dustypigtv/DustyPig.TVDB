@@ -1,24 +1,18 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class Companies
     {
-        [JsonProperty("studio", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> Studio { get; set; }
+        public List<Company> Studio { get; set; } = new List<Company>();
 
-        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> Network { get; set; }
+        public List<Company> Network { get; set; } = new List<Company>();
 
-        [JsonProperty("production", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> Production { get; set; }
+        public List<Company> Production { get; set; } = new List<Company>();
 
-        [JsonProperty("distributor", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> Distributor { get; set; }
+        public List<Company> Distributor { get; set; } = new List<Company>();
 
-        [JsonProperty("specialEffects", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> SpecialEffects { get; set; }
+        public List<Company> SpecialEffects { get; set; } = new List<Company>();
     }
 
 }

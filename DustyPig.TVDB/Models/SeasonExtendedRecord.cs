@@ -1,24 +1,18 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class SeasonExtendedRecord : SeasonBaseRecord
     {
-        [JsonProperty("artwork", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ArtworkBaseRecord> Artwork { get; set; }
+        public List<ArtworkBaseRecord> Artwork { get; set; } = new List<ArtworkBaseRecord>();
 
-        [JsonProperty("episodes", NullValueHandling = NullValueHandling.Ignore)]
-        public List<EpisodeBaseRecord> Episodes { get; set; }
+        public List<EpisodeBaseRecord> Episodes { get; set; } = new List<EpisodeBaseRecord>();
 
-        [JsonProperty("trailers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Trailer> Trailers { get; set; }
+        public List<Trailer> Trailers { get; set; } = new List<Trailer>();
 
-        [JsonProperty("companies", NullValueHandling = NullValueHandling.Ignore)]
-        public Companies Companies { get; set; }
+        public Companies Companies { get; set; } = new Companies();
 
-        [JsonProperty("tagOptions", NullValueHandling = NullValueHandling.Ignore)]
-        public List<TagOption> TagOptions { get; set; }
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
     }
 
 }

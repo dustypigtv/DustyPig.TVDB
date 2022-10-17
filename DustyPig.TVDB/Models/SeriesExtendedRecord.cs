@@ -1,39 +1,28 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class SeriesExtendedRecord : SeriesBaseRecord
     {
-        [JsonProperty("airsDays", NullValueHandling = NullValueHandling.Ignore)]
-        public SeriesAirsDays AirsDays { get; set; }
+        public SeriesAirsDays AirsDays { get; set; } = new SeriesAirsDays();
 
-        [JsonProperty("airsTime", NullValueHandling = NullValueHandling.Ignore)]
         public string AirsTime { get; set; }
 
-        [JsonProperty("artworks", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ArtworkExtendedRecord> Artworks { get; set; }
+        public List<ArtworkExtendedRecord> Artworks { get; set; } = new List<ArtworkExtendedRecord>();
 
-        [JsonProperty("characters", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Character> Characters { get; set; }
+        public List<Character> Characters { get; set; } = new List<Character>();
 
-        [JsonProperty("lists", NullValueHandling = NullValueHandling.Ignore)]
         public object Lists { get; set; }
 
-        [JsonProperty("genres", NullValueHandling = NullValueHandling.Ignore)]
-        public List<GenreBaseRecord> Genres { get; set; }
+        public List<GenreBaseRecord> Genres { get; set; } = new List<GenreBaseRecord>();
 
-        [JsonProperty("companies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Company> Companies { get; set; }
+        public List<Company> Companies { get; set; } = new List<Company>();
 
-        [JsonProperty("remoteIds", NullValueHandling = NullValueHandling.Ignore)]
-        public List<RemoteID> RemoteIds { get; set; }
+        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
 
-        [JsonProperty("seasons", NullValueHandling = NullValueHandling.Ignore)]
-        public List<SeasonBaseRecord> Seasons { get; set; }
+        public List<SeasonBaseRecord> Seasons { get; set; } = new List<SeasonBaseRecord>();
 
-        [JsonProperty("trailers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Trailer> Trailers { get; set; }
+        public List<Trailer> Trailers { get; set; } = new List<Trailer>();
     }
 
 }

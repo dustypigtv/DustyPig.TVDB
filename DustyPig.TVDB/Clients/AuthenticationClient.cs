@@ -16,6 +16,9 @@ namespace DustyPig.TVDB.Clients
             _headers = headers;
         }
 
+        /// <summary>
+        /// Sets the auth token without calling the <see cref="LoginAsync"/> api. Used for setting tokens that are stored locally
+        /// </summary>
         public void SetAuthToken(string token)
         {
             _headers.Clear();

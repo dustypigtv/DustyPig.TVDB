@@ -19,27 +19,44 @@ namespace DustyPig.TVDB.Clients
             _client.GetAsync<MovieBaseRecord>($"movies/{id}", cancellationToken);
 
 
-        public Task<Response<MovieExtendedRecord>> GetExtendedAsync(int id, Meta? meta = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Returns a single <see cref="MovieExtendedRecord"/>
+        /// </summary>
+        /// <param name="translations">Whethero or not to include <see cref="TranslationExtended"/></param>
+        /// <param name="shortened">Reduce the payload and returns the short version of this record without characters, artworks and trailers.</param>
+        public Task<Response<MovieExtendedRecord>> GetExtendedAsync(int id, bool translations = false, bool shortened = false, CancellationToken cancellationToken = default)
         {
-            string url = $"movies/{id}/extended";
-            if (meta != null)
-                url += $"?meta={meta.ConvertToString()}";
+            string url = $"movies/{id}/extended?short={shortened.ToString()}";
+            if (translations)
+                url += "&meta=translations";
+
             return _client.GetAsync<MovieExtendedRecord>(url, cancellationToken);
         }
 
-        public Task<Response<List<MovieBaseRecord>>> FilterAsync(string country, string lang, int? company = null, int? contentRating = null, int? genre = null, FilterSort? filterSort = null, int? status = null, int? year = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Search movies based on filter parameters
+        /// </summary>
+        /// <param name="country">Required. Country of origin</param>
+        /// <param name="lang">Required. Original language</param>
+        /// <param name="company">Production company</param>
+        /// <param name="contentRating">Content ratign id base on a country</param>
+        /// <param name="genre">Genre</param>
+        /// <param name="filterSort">Sort by results</param>
+        /// <param name="status">Status</param>
+        /// <param name="year">Release year</param>
+        public Task<Response<List<MovieBaseRecord>>> FilterAsync(string country, string lang, int? company = null, int? contentRating = null, int? genre = null, MovieFilterSort? filterSort = null, int? status = null, int? year = null, CancellationToken cancellationToken = default)
         {
             string url = $"movies/filter?country={Uri.EscapeDataString(country)}&lang={Uri.EscapeDataString(lang)}";
-            
+
             if (company != null)
                 url += $"&company={company}";
-            
+
             if (contentRating != null)
                 url += $"&contentRating={contentRating}";
-            
+
             if (genre != null)
                 url += $"&genre={genre}";
-            
+
             if (filterSort != null)
                 url += "&sort=" + filterSort.ConvertToString();
 

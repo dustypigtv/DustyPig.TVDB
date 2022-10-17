@@ -1,6 +1,6 @@
 ﻿using DustyPig.TVDB.Models;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DustyPig.TVDB.Clients
 {
@@ -10,7 +10,10 @@ namespace DustyPig.TVDB.Clients
 
         internal EpisodesClient(Client client) => _client = client;
 
-        
+        /// <summary>
+        /// Returns a list of <see cref="EpisodeBaseRecord"/>s with the basic attributes.
+        /// Note that all episodes are returned, even those that may not be included in a series' default season order.
+        /// </summary>
         public Task<Response<EpisodeBaseRecord>> GetAllAsync(int page = 0, CancellationToken cancellationToken = default) =>
             _client.GetAsync<EpisodeBaseRecord>("episodes", page, cancellationToken);
 
@@ -19,11 +22,16 @@ namespace DustyPig.TVDB.Clients
             _client.GetAsync<EpisodeBaseRecord>($"episodes/{id}", cancellationToken);
 
 
-        public Task<Response<EpisodeExtendedRecord>> GetExtendedAsync(int id, Meta? meta = null, CancellationToken cancellationToken = default)
+        /// <summary>
+        /// Returns a single <see cref="EpisodeExtendedRecord"/>
+        /// </summary>
+        /// <param name="id">Required</param>
+        /// <param name="translations">Whether to include <see cref="TranslationExtended"/></param>
+        public Task<Response<EpisodeExtendedRecord>> GetExtendedAsync(int id, bool translations = false, CancellationToken cancellationToken = default)
         {
             string url = $"episodes/{id}/extended";
-            if (meta != null)
-                url += $"?meta={meta.ConvertToString()}";
+            if (translations)
+                url = Client.AddQuery(url, "meta=translations");
             return _client.GetAsync<EpisodeExtendedRecord>(url, cancellationToken);
         }
 

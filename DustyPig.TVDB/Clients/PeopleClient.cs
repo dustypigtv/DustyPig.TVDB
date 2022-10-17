@@ -18,11 +18,11 @@ namespace DustyPig.TVDB.Clients
             _client.GetAsync<PeopleBaseRecord>($"people/{id}", cancellationToken);
 
 
-        public Task<Response<PeopleExtendedRecord>> GetExtendedAsync(int id, Meta? meta = null, CancellationToken cancellationToken = default)
+        public Task<Response<PeopleExtendedRecord>> GetExtendedAsync(int id, bool translations = false, CancellationToken cancellationToken = default)
         {
             string url = $"people/{id}/extended";
-            if (meta != null)
-                url += $"?meta={meta.ConvertToString()}";
+            if (translations)
+                url += "?meta=translations";
             return _client.GetAsync<PeopleExtendedRecord>(url, cancellationToken);
         }
 

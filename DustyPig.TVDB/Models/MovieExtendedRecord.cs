@@ -1,77 +1,55 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class MovieExtendedRecord : MovieBaseRecord
     {
-        [JsonProperty("artworks", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ArtworkBaseRecord> Artworks { get; set; }
+        public List<ArtworkBaseRecord> Artworks { get; set; } = new List<ArtworkBaseRecord>();
 
-        [JsonProperty("audioLanguages", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> AudioLanguages { get; set; }
+        public List<string> AudioLanguages { get; set; } = new List<string>();
 
-        [JsonProperty("awards", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AwardBaseRecord> Awards { get; set; }
+        public List<AwardBaseRecord> Awards { get; set; } = new List<AwardBaseRecord>();
 
-        [JsonProperty("boxOffice", NullValueHandling = NullValueHandling.Ignore)]
         public string BoxOffice { get; set; }
 
-        [JsonProperty("budget", NullValueHandling = NullValueHandling.Ignore)]
         public string Budget { get; set; }
 
-        [JsonProperty("characters", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Character> Characters { get; set; }
+        public List<Character> Characters { get; set; } = new List<Character>();
 
-        [JsonProperty("lists", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ListBaseRecord> Lists { get; set; }
+        public List<ListBaseRecord> Lists { get; set; } = new List<ListBaseRecord>();
 
-        [JsonProperty("genres", NullValueHandling = NullValueHandling.Ignore)]
-        public List<GenreBaseRecord> Genres { get; set; }
+        public List<GenreBaseRecord> Genres { get; set; } = new List<GenreBaseRecord>();
 
-        [JsonProperty("originalCountry", NullValueHandling = NullValueHandling.Ignore)]
         public string OriginalCountry { get; set; }
 
-        [JsonProperty("originalLanguage", NullValueHandling = NullValueHandling.Ignore)]
         public string OriginalLanguage { get; set; }
 
-        [JsonProperty("releases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Release> Releases { get; set; }
+        public List<Release> Releases { get; set; } = new List<Release>();
 
-        [JsonProperty("remoteIds", NullValueHandling = NullValueHandling.Ignore)]
-        public List<RemoteID> RemoteIds { get; set; }
+        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
 
-        [JsonProperty("runtime", NullValueHandling = NullValueHandling.Ignore)]
         public int? Runtime { get; set; }
 
-        [JsonProperty("contentRatings", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ContentRating> ContentRatings { get; set; }
+        public List<ContentRating> ContentRatings { get; set; } = new List<ContentRating>();
 
-        [JsonProperty("studios", NullValueHandling = NullValueHandling.Ignore)]
-        public List<StudioBaseRecord> Studios { get; set; }
+        public List<StudioBaseRecord> Studios { get; set; } = new List<StudioBaseRecord>();
 
-        [JsonProperty("subtitleLanguages", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> SubtitleLanguages { get; set; }
+        public List<string> SubtitleLanguages { get; set; } = new List<string>();
 
-        [JsonProperty("tagOptions", NullValueHandling = NullValueHandling.Ignore)]
-        public List<TagOption> TagOptions { get; set; }
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
 
-        [JsonProperty("trailers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Trailer> Trailers { get; set; }
+        public List<Trailer> Trailers { get; set; } = new List<Trailer>();
 
-        [JsonProperty("inspirations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Inspiration> Inspirations { get; set; }
+        public TranslationExtended Translations { get; set; }
 
-        [JsonProperty("productionCountries", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ProductionCountry> ProductionCountries { get; set; }
+        public List<Inspiration> Inspirations { get; set; } = new List<Inspiration>();
 
-        [JsonProperty("spokenLanguages", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> SpokenLanguages { get; set; }
+        public List<ProductionCountry> ProductionCountries { get; set; } = new List<ProductionCountry>();
 
-        [JsonProperty("firstRelease", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SpokenLanguages { get; set; } = new List<string>();
+
         public Release FirstRelease { get; set; }
 
-        [JsonProperty("companies", NullValueHandling = NullValueHandling.Ignore)]
         public Companies Companies { get; set; }
     }
 

@@ -1,18 +1,14 @@
-using Newtonsoft.Json;
 using System;
 using System.Net;
 
 namespace DustyPig.TVDB.Models
-{    
+{
     public class Response<T>
     {
-        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; set; }
 
-        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
         public T Data { get; set; }
 
-        [JsonProperty("links", NullValueHandling = NullValueHandling.Ignore)]
         public Links Links { get; set; }
 
         public bool Success { get; set; }

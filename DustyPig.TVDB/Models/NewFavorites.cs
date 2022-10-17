@@ -7,7 +7,7 @@ namespace DustyPig.TVDB.Models
         [JsonProperty("series")]
         public int Series { get; set; }
 
-        [JsonProperty("movies")]    
+        [JsonProperty("movies")]
         public int Movies { get; set; }
 
 
@@ -19,7 +19,6 @@ namespace DustyPig.TVDB.Models
 
         [JsonProperty("people")]
         public int People { get; set; }
-
 
         [JsonProperty("lists")]
         public int List { get; set; }

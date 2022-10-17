@@ -11,9 +11,11 @@ namespace DustyPig.TVDB.Clients
 
         internal EntityTypesClient(Client client) => _client = client;
 
+        /// <summary>
+        /// Returns the active <see cref="EntityType"/>s
+        /// </summary>
         public Task<Response<List<EntityType>>> GetAllAsync(CancellationToken cancellationToken = default) =>
             _client.GetAsync<List<EntityType>>("entities", cancellationToken);
-
 
     }
 }

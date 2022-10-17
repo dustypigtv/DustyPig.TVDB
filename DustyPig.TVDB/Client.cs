@@ -17,14 +17,14 @@ namespace DustyPig.TVDB
         public const string API_AS_OF_DATE = "10/16/2022";
 
         private static readonly HttpClient _httpClient = new HttpClient() { BaseAddress = new Uri("https://api4.thetvdb.com/v4/") };
-        
+
         private readonly Dictionary<string, string> _headers;
 
 
         public Client()
         {
             _headers = new Dictionary<string, string>();
-            
+
             Authentication = new AuthenticationClient(this, _headers);
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
@@ -33,7 +33,7 @@ namespace DustyPig.TVDB
         }
 
         public AuthenticationClient Authentication { get; }
-        
+
         public ArtworkClient Artwork { get; }
 
         public ArtworkStatusesClient ArtworkStatuses { get; }
@@ -44,14 +44,14 @@ namespace DustyPig.TVDB
 
 
 
-        
+
         public bool IncludeRawContentInResponse { get; set; }
 
         public bool AutoThrowIfError { get; set; }
 
 
-        
-        
+
+
         private static HttpRequestMessage CreateRequest(HttpMethod method, string url, IDictionary<string, string> headers, object data)
         {
             var request = new HttpRequestMessage(method, url);
@@ -107,13 +107,13 @@ namespace DustyPig.TVDB
 
 
 
-        
+
         internal Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken = default) =>
             GetResponseAsync<T>(HttpMethod.Get, subUrl, _headers, null, cancellationToken);
 
         internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken = default)
         {
-            string pagedUrl = subUrl + (subUrl.Contains("?") ? "&" : "?") + $"&page={page}";
+            string pagedUrl = AddQuery(subUrl, $"page={page}");
             return GetResponseAsync<T>(HttpMethod.Get, pagedUrl, _headers, null, cancellationToken);
         }
 
@@ -121,5 +121,9 @@ namespace DustyPig.TVDB
             GetResponseAsync<T>(HttpMethod.Post, subUrl, _headers, data, cancellationToken);
 
 
+        internal static string AddQuery(string url, string q)
+        {
+            return url + (url.Contains("?") ? "&" : "?") + q;
+        }
     }
 }

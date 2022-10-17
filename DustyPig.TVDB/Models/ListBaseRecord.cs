@@ -1,32 +1,23 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class ListBaseRecord
     {
-        [JsonProperty("aliases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Alias> Aliases { get; set; }
+        public List<Alias> Aliases { get; set; } = new List<Alias>();
 
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public int Id { get; set; }
 
-        [JsonProperty("isOfficial", NullValueHandling = NullValueHandling.Ignore)]
         public bool IsOfficial { get; set; }
 
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
 
-        [JsonProperty("nameTranslations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> NameTranslations { get; set; }
+        public List<string> NameTranslations { get; set; } = new List<string>();
 
-        [JsonProperty("overview", NullValueHandling = NullValueHandling.Ignore)]
         public string Overview { get; set; }
 
-        [JsonProperty("overviewTranslations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> OverviewTranslations { get; set; }
+        public List<string> OverviewTranslations { get; set; } = new List<string>();
 
-        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
     }
 

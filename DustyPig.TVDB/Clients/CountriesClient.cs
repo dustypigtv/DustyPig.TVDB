@@ -1,7 +1,7 @@
 ﻿using DustyPig.TVDB.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DustyPig.TVDB.Clients
 {

@@ -1,42 +1,32 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
 {
     public class EpisodeExtendedRecord : EpisodeBaseRecord
     {
-        [JsonProperty("airsAfterSeason", NullValueHandling = NullValueHandling.Ignore)]
         public int AirsAfterSeason { get; set; }
 
-        [JsonProperty("airsBeforeEpisode", NullValueHandling = NullValueHandling.Ignore)]
         public int AirsBeforeEpisode { get; set; }
 
-        [JsonProperty("airsBeforeSeason", NullValueHandling = NullValueHandling.Ignore)]
         public int AirsBeforeSeason { get; set; }
 
-        [JsonProperty("awards", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AwardBaseRecord> Awards { get; set; }
+        public List<AwardBaseRecord> Awards { get; set; } = new List<AwardBaseRecord>();
 
-        [JsonProperty("characters", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Character> Characters { get; set; }
+        public List<Character> Characters { get; set; } = new List<Character>();
 
-        [JsonProperty("contentRatings", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ContentRating> ContentRatings { get; set; }
+        public List<ContentRating> ContentRatings { get; set; } = new List<ContentRating>();
 
-        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
         public NetworkBaseRecord Network { get; set; }
 
-        [JsonProperty("productionCode", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductionCode { get; set; }
 
-        [JsonProperty("remoteIds", NullValueHandling = NullValueHandling.Ignore)]
-        public List<RemoteID> RemoteIds { get; set; }
+        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
 
-        [JsonProperty("tagOptions", NullValueHandling = NullValueHandling.Ignore)]
-        public List<TagOption> TagOptions { get; set; }
+        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
 
-        [JsonProperty("trailers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Trailer> Trailers { get; set; }
+        public TranslationExtended Translations { get; set; }
+
+        public List<Trailer> Trailers { get; set; } = new List<Trailer>();
     }
 
 }
