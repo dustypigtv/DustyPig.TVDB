@@ -12,6 +12,12 @@ namespace DustyPig.TVDB.Models
 
         [JsonProperty("next", NullValueHandling = NullValueHandling.Ignore)]
         public string Next { get; set; }
+
+        [JsonProperty("total_items", NullValueHandling = NullValueHandling.Ignore)]
+        public int TotalItems { get; set; }
+
+        [JsonProperty("page_size", NullValueHandling = NullValueHandling.Ignore)]
+        public int PageSize { get; set; }
     }
 
 }
