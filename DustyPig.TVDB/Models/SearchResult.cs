@@ -15,6 +15,9 @@ namespace DustyPig.TVDB.Models
 
         public string Director { get; set; }
 
+        [JsonProperty("extended_title")]
+        public string ExtendedTitle { get; set; }
+
         [JsonProperty("first_air_time")]
         public string FirstAirTime { get; set; }
 
@@ -54,6 +57,9 @@ namespace DustyPig.TVDB.Models
 
         [JsonProperty("primary_language")]
         public string PrimaryLanguage { get; set; }
+
+        [JsonProperty("primary_type")]
+        public string PrimaryType { get; set; }
 
         [JsonProperty("remote_ids")]
         public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
