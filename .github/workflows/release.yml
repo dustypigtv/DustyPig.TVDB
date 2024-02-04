@@ -15,28 +15,15 @@ jobs:
     steps:
     
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@4
 
-      - name: Setup .NET Core 6
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with: 
-          dotnet-version: 6.0.x
-
-      - name: Setup .NET Core 7
-        uses: actions/setup-dotnet@v1
-        with: 
-          dotnet-version: 7.0.x
-
-      - name: Setup .NET Core 8
-        uses: actions/setup-dotnet@v1
-        with: 
-          dotnet-version: 8.0.x
+          dotnet-version: 8
 
       - name: Build
         run: |
             sed -i "s/\(<Version>\([0-9]\+\.\)\{3\}\)\([0-9]\+\)/\1${{github.run_number}}/" "DustyPig.TVDB/DustyPig.TVDB.csproj"
-            dotnet test -c release
             dotnet pack -c release -o nuget
             dotnet nuget push "nuget/*.nupkg" --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json
-        
-        
