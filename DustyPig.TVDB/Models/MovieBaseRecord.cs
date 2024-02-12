@@ -4,7 +4,7 @@ namespace DustyPig.TVDB.Models
 {
     public class MovieBaseRecord
     {
-        public List<Alias> Aliases { get; set; } = new List<Alias>();
+        public List<Alias> Aliases { get; set; } = [];
 
         public int Id { get; set; }
 
@@ -14,11 +14,11 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public List<string> NameTranslations { get; set; } = new List<string>();
+        public List<string> NameTranslations { get; set; } = [];
 
-        public List<string> OverviewTranslations { get; set; } = new List<string>();
+        public List<string> OverviewTranslations { get; set; } = [];
 
-        public int Runtime { get; set; }
+        public int? Runtime { get; set; }
 
         public double Score { get; set; }
 

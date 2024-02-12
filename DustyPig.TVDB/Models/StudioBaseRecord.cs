@@ -6,7 +6,7 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public int ParentStudio { get; set; }
+        public int? ParentStudio { get; set; }
     }
 
 }

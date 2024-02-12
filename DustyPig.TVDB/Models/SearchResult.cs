@@ -1,13 +1,13 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
     public class SearchResult
     {
-        public List<string> Aliases { get; set; } = new List<string>();
+        public List<string> Aliases { get; set; } = [];
 
-        public List<string> Companies { get; set; } = new List<string>();
+        public List<string> Companies { get; set; } = [];
 
         public string CompanyType { get; set; }
 
@@ -15,22 +15,22 @@ namespace DustyPig.TVDB.Models
 
         public string Director { get; set; }
 
-        [JsonProperty("extended_title")]
+        [JsonPropertyName("extended_title")]
         public string ExtendedTitle { get; set; }
 
-        [JsonProperty("first_air_time")]
+        [JsonPropertyName("first_air_time")]
         public string FirstAirTime { get; set; }
 
-        public List<string> Genres { get; set; } = new List<string>();
+        public List<string> Genres { get; set; } = [];
 
         public string Id { get; set; }
 
-        [JsonProperty("image_url")]
+        [JsonPropertyName("image_url")]
         public string ImageUrl { get; set; }
 
         public string Name { get; set; }
 
-        [JsonProperty("is_official")]
+        [JsonPropertyName("is_official")]
         public bool IsOfficial { get; set; }
 
         public string NameTranslated { get; set; }
@@ -46,29 +46,29 @@ namespace DustyPig.TVDB.Models
         /// <summary>
         /// Key is language code, value is overview
         /// </summary>
-        public Dictionary<string, string> Overviews { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Overviews { get; set; } = [];
 
-        [JsonProperty("overview_translated")]
-        public List<string> OverviewTranslated { get; set; } = new List<string>();
+        [JsonPropertyName("overview_translated")]
+        public List<string> OverviewTranslated { get; set; } = [];
 
         public string Poster { get; set; }
 
-        public List<string> Posters { get; set; } = new List<string>();
+        public List<string> Posters { get; set; } = [];
 
-        [JsonProperty("primary_language")]
+        [JsonPropertyName("primary_language")]
         public string PrimaryLanguage { get; set; }
 
-        [JsonProperty("primary_type")]
+        [JsonPropertyName("primary_type")]
         public string PrimaryType { get; set; }
 
-        [JsonProperty("remote_ids")]
-        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
+        [JsonPropertyName("remote_ids")]
+        public List<RemoteId> RemoteIds { get; set; } = [];
 
         public string Status { get; set; }
 
         public string Slug { get; set; }
 
-        public List<string> Studios { get; set; } = new List<string>();
+        public List<string> Studios { get; set; } = [];
 
         public string Title { get; set; }
 
@@ -77,10 +77,10 @@ namespace DustyPig.TVDB.Models
         /// <summary>
         /// Key is language code, value is overview
         /// </summary>
-        public Dictionary<string, string> Translations { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Translations { get; set; } = [];
 
 
-        public List<string> TranslationsWithLang { get; set; } = new List<string>();
+        public List<string> TranslationsWithLang { get; set; } = [];
 
         public int TVDB_Id { get; set; }
 

@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DustyPig.TVDB.Models
@@ -7,7 +6,7 @@ namespace DustyPig.TVDB.Models
     {
         public string ActiveDate { get; set; }
 
-        public List<Alias> Aliases { get; set; } = new List<Alias>();
+        public List<Alias> Aliases { get; set; } = [];
 
         public string Country { get; set; }
 
@@ -17,9 +16,9 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public List<string> NameTranslations { get; set; } = new List<string>();
+        public List<string> NameTranslations { get; set; } = [];
 
-        public List<string> OverviewTranslations { get; set; } = new List<string>();
+        public List<string> OverviewTranslations { get; set; } = [];
 
         public int PrimaryCompanyType { get; set; }
 
@@ -27,7 +26,7 @@ namespace DustyPig.TVDB.Models
 
         public ParentCompany ParentCompany { get; set; }
 
-        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
+        public List<TagOption> TagOptions { get; set; } = [];
     }
 
 }

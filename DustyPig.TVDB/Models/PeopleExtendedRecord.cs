@@ -20,7 +20,7 @@ namespace DustyPig.TVDB.Models
 
         public List<Race> Races { get; set; } = new List<Race>();
 
-        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
+        public List<RemoteId> RemoteIds { get; set; } = [];
 
         public string Slug { get; set; }
 

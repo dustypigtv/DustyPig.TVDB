@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
@@ -10,10 +10,10 @@ namespace DustyPig.TVDB.Models
 
         public string Next { get; set; }
 
-        [JsonProperty("total_items")]
+        [JsonPropertyName("total_items")]
         public int TotalItems { get; set; }
 
-        [JsonProperty("page_size")]
+        [JsonPropertyName("page_size")]
         public int PageSize { get; set; }
     }
 

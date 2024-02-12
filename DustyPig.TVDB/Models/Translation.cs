@@ -4,7 +4,7 @@ namespace DustyPig.TVDB.Models
 {
     public class Translation
     {
-        public List<string> Aliases { get; set; } = new List<string>();
+        public List<string> Aliases { get; set; } = [];
 
         public bool IsAlias { get; set; }
 

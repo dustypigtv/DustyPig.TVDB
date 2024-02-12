@@ -1,13 +1,16 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
     public class Credentials
     {
-        [JsonProperty("apikey", Required = Required.Always)]
+#if NET7_0_OR_GREATER
+        [JsonRequired]
+#endif
+        [JsonPropertyName("apikey")]
         public string Apikey { get; set; }
 
-        [JsonProperty("pin", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("pin")]
         public string Pin { get; set; }
     }
 

@@ -1,11 +1,12 @@
 using DustyPig.TVDB.Clients;
 using DustyPig.TVDB.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,17 +14,23 @@ namespace DustyPig.TVDB
 {
     public class Client
     {
+        
         public const string API_VERSION = "4.7.1";
         public const string API_AS_OF_DATE = "10/16/2022";
 
-        private static readonly HttpClient _httpClient = new HttpClient() { BaseAddress = new Uri("https://api4.thetvdb.com/v4/") };
+        private static readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://api4.thetvdb.com/v4/") };
+
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new(JsonSerializerDefaults.Web)
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        };
 
         private readonly Dictionary<string, string> _headers;
 
 
         public Client()
         {
-            _headers = new Dictionary<string, string>();
+            _headers = [];
 
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
@@ -100,7 +107,7 @@ namespace DustyPig.TVDB
 
         public PeopleTypesClient PeopleTypes { get; }
 
-        public SearchClient Search { get; } 
+        public SearchClient Search { get; }
 
         public SeasonsClient Seasons { get; }
 
@@ -122,12 +129,6 @@ namespace DustyPig.TVDB
         public bool AutoThrowIfError { get; set; }
 
 
-        private static JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings 
-        {
-            NullValueHandling = NullValueHandling.Ignore
-        };
-
-
         private static HttpRequestMessage CreateRequest(HttpMethod method, string url, IDictionary<string, string> headers, object data)
         {
             var request = new HttpRequestMessage(method, url);
@@ -136,7 +137,7 @@ namespace DustyPig.TVDB
                     request.Headers.Add(header.Key, header.Value);
 
             if (data != null)
-                request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                request.Content = new StringContent(JsonSerializer.Serialize(data, _jsonSerializerOptions), Encoding.UTF8, "application/json");
 
             return request;
         }
@@ -149,12 +150,13 @@ namespace DustyPig.TVDB
             try
             {
                 using var request = CreateRequest(method, subUrl, headers, data);
-                using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+                using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                 statusCode = response.StatusCode;
                 reasonPhrase = response.ReasonPhrase;
-                content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+                System.IO.File.WriteAllText("C:\\Users\\jason\\Desktop\\content.json", content);
                 response.EnsureSuccessStatusCode();
-                var ret = JsonConvert.DeserializeObject<Response<T>>(content, _jsonSerializerSettings);
+                var ret = JsonSerializer.Deserialize<Response<T>>(content, _jsonSerializerOptions);
                 ret.ReasonPhrase = reasonPhrase;
                 ret.Success = true;
                 ret.RawContent = IncludeRawContentInResponse ? content : null;
@@ -203,7 +205,7 @@ namespace DustyPig.TVDB
 
         internal static string AddQuery(string url, string q)
         {
-            return url + (url.Contains("?") ? "&" : "?") + q;
+            return url + (url.Contains('?') ? "&" : "?") + q;
         }
     }
 }

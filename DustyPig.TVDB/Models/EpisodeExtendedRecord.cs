@@ -10,7 +10,7 @@ namespace DustyPig.TVDB.Models
 
         public List<Company> Companies { get; set; } = new List<Company>();
 
-        public List<ContentRating> ContentRatings { get; set; } = new List<ContentRating>();
+        public List<ContentRating> ContentRatings { get; set; } = [];
 
         public List<Company> Networks { get; set; } = new List<Company>();
 
@@ -18,7 +18,7 @@ namespace DustyPig.TVDB.Models
 
         public string ProductionCode { get; set; }
 
-        public List<RemoteId> RemoteIds { get; set; } = new List<RemoteId>();
+        public List<RemoteId> RemoteIds { get; set; } = [];
 
         public List<Company> Studios { get; set; } = new List<Company>();
 

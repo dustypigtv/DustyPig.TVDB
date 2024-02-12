@@ -8,6 +8,6 @@ namespace DustyPig.TVDB.Models
 
         public List<Translation> OverviewTranslations { get; set; } = new List<Translation>();
 
-        public List<string> Aliases { get; set; } = new List<string>();
+        public List<string> Aliases { get; set; } = [];
     }
 }

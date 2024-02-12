@@ -7,9 +7,9 @@ namespace DustyPig.TVDB.Models
     /// </summary>
     public class SeriesBaseRecord
     {
-        public List<Alias> Aliases { get; set; } = new List<Alias>();
+        public List<Alias> Aliases { get; set; } = [];
 
-        public int AverageRuntime { get; set; }
+        public int? AverageRuntime { get; set; }
 
         public string Country { get; set; }
 
@@ -31,7 +31,7 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public List<string> NameTranslations { get; set; } = new List<string>();
+        public List<string> NameTranslations { get; set; } = [];
 
         public string NextAired { get; set; }
 
@@ -39,7 +39,7 @@ namespace DustyPig.TVDB.Models
 
         public string OriginalLanguage { get; set; }
 
-        public List<string> OverviewTranslations { get; set; } = new List<string>();
+        public List<string> OverviewTranslations { get; set; } = [];
 
         public double Score { get; set; }
 

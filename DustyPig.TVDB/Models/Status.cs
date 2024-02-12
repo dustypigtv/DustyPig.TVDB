@@ -2,7 +2,7 @@ namespace DustyPig.TVDB.Models
 {
     public class Status
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public bool KeepUpdated { get; set; }
 

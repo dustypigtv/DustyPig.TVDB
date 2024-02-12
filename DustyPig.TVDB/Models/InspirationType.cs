@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
@@ -10,7 +10,7 @@ namespace DustyPig.TVDB.Models
 
         public string Description { get; set; }
 
-        [JsonProperty("reference_name")]
+        [JsonPropertyName("reference_name")]
         public string ReferenceName { get; set; }
 
         public string Url { get; set; }
