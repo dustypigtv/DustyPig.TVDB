@@ -2,9 +2,9 @@ namespace DustyPig.TVDB.Models
 {
     public class ArtworkType
     {
-        public int Height { get; set; }
+        public long Height { get; set; }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string ImageFormat { get; set; }
 
@@ -14,11 +14,11 @@ namespace DustyPig.TVDB.Models
 
         public string Slug { get; set; }
 
-        public int ThumbHeight { get; set; }
+        public long ThumbHeight { get; set; }
 
-        public int ThumbWidth { get; set; }
+        public long ThumbWidth { get; set; }
 
-        public int Width { get; set; }
+        public long Width { get; set; }
     }
 
 }

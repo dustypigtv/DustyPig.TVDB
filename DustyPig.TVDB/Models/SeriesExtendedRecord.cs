@@ -13,11 +13,11 @@ namespace DustyPig.TVDB.Models
 
         public string AirsTime { get; set; }
 
-        public List<ArtworkExtendedRecord> Artworks { get; set; } = new List<ArtworkExtendedRecord>();
+        public List<ArtworkExtendedRecord> Artworks { get; set; } = [];
 
-        public List<Character> Characters { get; set; } = new List<Character>();
+        public List<Character> Characters { get; set; } = [];
 
-        public List<Company> Companies { get; set; } = new List<Company>();
+        public List<Company> Companies { get; set; } = [];
 
         public List<ContentRating> ContentRatings { get; set; } = [];
 
@@ -33,13 +33,13 @@ namespace DustyPig.TVDB.Models
 
         public List<RemoteId> RemoteIds { get; set; } = [];
 
-        public List<SeasonBaseRecord> Seasons { get; set; } = new List<SeasonBaseRecord>();
+        public List<SeasonBaseRecord> Seasons { get; set; } = [];
 
-        public List<SeasonType> SeasonTypes { get; set; } = new List<SeasonType>();
+        public List<SeasonType> SeasonTypes { get; set; } = [];
 
-        public List<TagOption> Tags { get; set; } = new List<TagOption>();
+        public List<TagOption> Tags { get; set; } = [];
 
-        public List<Trailer> Trailers { get; set; } = new List<Trailer>();
+        public List<Trailer> Trailers { get; set; } = [];
 
         public TranslationExtended Translations { get; set; }
     }

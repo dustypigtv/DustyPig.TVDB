@@ -20,15 +20,13 @@ namespace DustyPig.TVDB.Models
 
         public ArtworkStatus Status { get; set; }
 
-        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
+        public List<TagOption> TagOptions { get; set; } = [];
 
-        public int ThumbnailHeight { get; set; }
+        public long ThumbnailHeight { get; set; }
 
-        public int ThumbnailWidth { get; set; }
+        public long ThumbnailWidth { get; set; }
 
         public long? UpdatedAt { get; set; }
-
-        public int Width { get; set; }
     }
 
 }

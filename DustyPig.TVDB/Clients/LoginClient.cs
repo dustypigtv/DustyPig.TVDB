@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace DustyPig.TVDB.Clients
 {
-    public class AuthenticationClient
+    public class LoginClient
     {
         private readonly Client _client;
         private readonly Dictionary<string, string> _headers;
 
-        internal AuthenticationClient(Client client, Dictionary<string, string> headers)
+        internal LoginClient(Client client, Dictionary<string, string> headers)
         {
             _client = client;
             _headers = headers;

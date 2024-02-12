@@ -12,7 +12,7 @@ namespace DustyPig.TVDB.Models
 
         public string Name { get; set; }
 
-        public List<TagOption> Options { get; set; } = new List<TagOption>();
+        public List<TagOption> Options { get; set; } = [];
     }
 
 }

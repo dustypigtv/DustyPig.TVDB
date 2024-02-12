@@ -71,7 +71,7 @@ namespace DustyPig.TVDB.Clients
         /// Search a series, movie, people, episode, company or season by specific reomote id
         /// </summary>
         /// <param name="remote_id">Search for a specific remote id. Allows searching for an IMDB or EIDR id, for example.</param>
-        public Task<Response<List<SearchResult>>> SearchByRemoteIdAsync(string remote_id, CancellationToken cancellationToken = default) =>
-            _client.GetAsync<List<SearchResult>>("search/remoteid/" + Uri.EscapeDataString(remote_id), cancellationToken);
+        public Task<Response<List<SearchByRemoteIdResult>>> SearchByRemoteIdAsync(string remote_id, CancellationToken cancellationToken = default) =>
+            _client.GetAsync<List<SearchByRemoteIdResult>>("search/remoteid/" + Uri.EscapeDataString(remote_id), cancellationToken);
     }
 }

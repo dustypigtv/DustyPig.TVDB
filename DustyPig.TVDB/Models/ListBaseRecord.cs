@@ -24,7 +24,7 @@ namespace DustyPig.TVDB.Models
 
         public List<RemoteId> RemoteIds { get; set; } = [];
 
-        public List<TagOption> Tags { get; set; }
+        public List<TagOption> Tags { get; set; } = [];
 
         public int Score { get; set; }
 

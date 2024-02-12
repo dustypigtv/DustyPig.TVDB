@@ -4,14 +4,14 @@
     {
         public int Series { get; set; }
 
-        public int Movies { get; set; }
+        public int Movie { get; set; }
 
-        public int Episodes { get; set; }
+        public int Episode { get; set; }
 
         public int Artwork { get; set; }
 
         public int People { get; set; }
 
-        public int Lists { get; set; }
+        public int List { get; set; }
     }
 }

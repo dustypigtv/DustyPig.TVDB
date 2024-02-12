@@ -26,7 +26,7 @@ namespace DustyPig.TVDB.Clients
         /// <param name="shortened">Reduce the payload and returns the short version of this record without characters, artworks and trailers.</param>
         public Task<Response<MovieExtendedRecord>> GetExtendedAsync(int id, bool translations = false, bool shortened = false, CancellationToken cancellationToken = default)
         {
-            string url = $"movies/{id}/extended?short={shortened.ToString()}";
+            string url = $"movies/{id}/extended?short={shortened}";
             if (translations)
                 url += "&meta=translations";
 

@@ -1,6 +1,4 @@
-using DustyPig.TVDB.Converters;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
@@ -14,6 +12,9 @@ namespace DustyPig.TVDB.Models
 
         public int AirsBeforeSeason { get; set; }
 
+        /// <summary>
+        /// season, midseason, or series
+        /// </summary>
         public string FinaleType { get; set; }
 
         public int Id { get; set; }
@@ -22,8 +23,7 @@ namespace DustyPig.TVDB.Models
 
         public int? ImageType { get; set; }
 
-        [JsonConverter(typeof(BoolConverter))]
-        public bool IsMovie { get; set; }
+        public int IsMovie { get; set; }
 
         public string LastUpdated { get; set; }
 
@@ -33,6 +33,9 @@ namespace DustyPig.TVDB.Models
 
         public List<string> NameTranslations { get; set; } = [];
 
+        /// <summary>
+        /// Not nullable in documentation, but some results are null
+        /// </summary>
         public int? Number { get; set; }
 
         public string Overview { get; set; }
@@ -41,6 +44,9 @@ namespace DustyPig.TVDB.Models
 
         public int? Runtime { get; set; }
 
+        /// <summary>
+        /// Not nullable in documentation, but some results are null
+        /// </summary>
         public int? SeasonNumber { get; set; }
 
         public List<SeasonBaseRecord> Seasons { get; set; } = [];

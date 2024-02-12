@@ -15,7 +15,7 @@ namespace DustyPig.TVDB.Models
 
         public int DefaultSeasonType { get; set; }
 
-        public List<EpisodeBaseRecord> Episodes { get; set; } = new List<EpisodeBaseRecord>();
+        public List<EpisodeBaseRecord> Episodes { get; set; } = [];
 
         public string FirstAired { get; set; }
 

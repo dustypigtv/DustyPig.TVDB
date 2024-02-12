@@ -6,7 +6,7 @@ namespace DustyPig.TVDB.Models
     {
         public SeriesExtendedRecord Series { get; set; }
 
-        public List<EpisodeBaseRecord> Episodes { get; set; } = new List<EpisodeBaseRecord>();
+        public List<EpisodeBaseRecord> Episodes { get; set; } = [];
     }
 
 }

@@ -8,7 +8,7 @@ namespace DustyPig.TVDB.Models
 
         public EpisodeBaseRecord Episode { get; set; }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public bool IsWinner { get; set; }
 

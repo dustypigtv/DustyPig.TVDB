@@ -10,6 +10,8 @@ namespace DustyPig.TVDB.Models
 
         public string Image { get; set; }
 
+        public string LastUpdated { get; set; }
+
         public string Name { get; set; }
 
         public List<string> NameTranslations { get; set; } = [];

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace DustyPig.TVDB.Models
 {
@@ -29,7 +28,6 @@ namespace DustyPig.TVDB.Models
 
         public int PeopleId { get; set; }
 
-        [JsonPropertyName("personImgURL")]
         public string PersonImgUrl { get; set; }
 
         public string PeopleType { get; set; }
@@ -42,7 +40,7 @@ namespace DustyPig.TVDB.Models
 
         public List<TagOption> TagOptions { get; set; } = [];
 
-        public int Type { get; set; }
+        public long Type { get; set; }
 
         public string Url { get; set; }
 

@@ -15,8 +15,8 @@ namespace DustyPig.TVDB
     public class Client
     {
         
-        public const string API_VERSION = "4.7.1";
-        public const string API_AS_OF_DATE = "10/16/2022";
+        public const string API_VERSION = "4.7.9";
+        public const string API_AS_OF_DATE = "02/12/2024";
 
         private static readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://api4.thetvdb.com/v4/") };
 
@@ -35,7 +35,6 @@ namespace DustyPig.TVDB
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
             ArtworkTypes = new ArtworkTypesClient(this);
-            Authentication = new AuthenticationClient(this, _headers);
             AwardCategories = new AwardCategoriesClient(this);
             Awards = new AwardsClient(this);
             Characters = new CharactersClient(this);
@@ -50,6 +49,7 @@ namespace DustyPig.TVDB
             InspirationTypes = new InspirationTypesClient(this);
             Languages = new LanguagesClient(this);
             Lists = new ListsClient(this);
+            Login = new LoginClient(this, _headers);
             Movies = new MoviesClient(this);
             MovieStatuses = new MovieStatusesClient(this);
             People = new PeopleClient(this);
@@ -68,8 +68,6 @@ namespace DustyPig.TVDB
         public ArtworkStatusesClient ArtworkStatuses { get; }
 
         public ArtworkTypesClient ArtworkTypes { get; }
-
-        public AuthenticationClient Authentication { get; }
 
         public AwardCategoriesClient AwardCategories { get; }
 
@@ -98,6 +96,8 @@ namespace DustyPig.TVDB
         public LanguagesClient Languages { get; }
 
         public ListsClient Lists { get; }
+
+        public LoginClient Login { get; }
 
         public MoviesClient Movies { get; }
 
@@ -153,8 +153,7 @@ namespace DustyPig.TVDB
                 using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                 statusCode = response.StatusCode;
                 reasonPhrase = response.ReasonPhrase;
-                content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-                System.IO.File.WriteAllText("C:\\Users\\jason\\Desktop\\content.json", content);
+                content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);                
                 response.EnsureSuccessStatusCode();
                 var ret = JsonSerializer.Deserialize<Response<T>>(content, _jsonSerializerOptions);
                 ret.ReasonPhrase = reasonPhrase;

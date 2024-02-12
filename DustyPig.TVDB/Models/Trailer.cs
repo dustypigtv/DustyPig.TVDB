@@ -9,6 +9,8 @@ namespace DustyPig.TVDB.Models
         public string Name { get; set; }
 
         public string Url { get; set; }
+
+        public int Runtime { get; set; }
     }
 
 }

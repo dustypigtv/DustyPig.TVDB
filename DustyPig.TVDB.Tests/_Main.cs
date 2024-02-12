@@ -41,7 +41,7 @@ namespace DustyPig.TVDB.Tests
                 {
                     LoggingIn = true;
 
-                    await ApiClient.Authentication.LoginAsync(new Credentials
+                    await ApiClient.Login.LoginAsync(new Credentials
                     {
                         Apikey = GetEnvVar(ENV_KEY_VARIABLE),
                         Pin = GetEnvVar(ENV_PIN_VARIABLE)
