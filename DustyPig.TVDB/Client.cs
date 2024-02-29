@@ -2,11 +2,6 @@ using DustyPig.TVDB.Clients;
 using DustyPig.TVDB.Models;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,29 +10,16 @@ namespace DustyPig.TVDB
     public class Client : IDisposable
     {
         public const string API_VERSION = "4.7.9";
-        public const string API_AS_OF_DATE = "02/12/2024";
-
-        private readonly HttpClient _httpClient = new() { BaseAddress = new Uri("https://api4.thetvdb.com/v4/") };
-
-        private static readonly JsonSerializerOptions _jsonSerializerOptions = new(JsonSerializerDefaults.Web)
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-        };
+        public const string API_AS_OF_DATE = "02/29/2024";
 
 
+        private readonly REST.Client _restClient = new("https://api4.thetvdb.com/v4/");
+        private readonly Dictionary<string, string> _headers = [];
 
-        private int _retryCount = 0;
-        private int _retryDelay = 0;
-        private int _throttle = 0;
-        private DateTime _nextCall = DateTime.MinValue;
-
-        private readonly Dictionary<string, string> _headers;
 
 
         public Client()
         {
-            _headers = [];
-
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
             ArtworkTypes = new ArtworkTypesClient(this);
@@ -71,9 +53,11 @@ namespace DustyPig.TVDB
 
         public void Dispose()
         {
-            _httpClient.Dispose();
+            _restClient.Dispose();
             GC.SuppressFinalize(this);
         }
+
+
 
         public ArtworkClient Artwork { get; }
 
@@ -135,12 +119,17 @@ namespace DustyPig.TVDB
 
 
 
+        public bool IncludeRawContentInResponse
+        {
+            get => _restClient.IncludeRawContentInResponse;
+            set => _restClient.IncludeRawContentInResponse = value;
+        }
 
-        public bool IncludeRawContentInResponse { get; set; }
-
-        public bool AutoThrowIfError { get; set; }
-
-
+        public bool AutoThrowIfError
+        {
+            get => _restClient.AutoThrowIfError;
+            set => _restClient.AutoThrowIfError = value;
+        }
 
         /// <summary>
         /// When an error occurs, how many times to retry the api call.
@@ -163,14 +152,9 @@ namespace DustyPig.TVDB
         /// </remarks>
         public int RetryCount
         {
-            get => _retryCount;
-            set
-            {
-                ThrowIfNegative(value);
-                _retryCount = value;
-            }
+            get => _restClient.RetryCount;
+            set => _restClient.RetryCount = value;
         }
-
 
         /// <summary>
         /// Number of milliseconds between retries.
@@ -179,15 +163,9 @@ namespace DustyPig.TVDB
         /// </summary>
         public int RetryDelay
         {
-            get => _retryDelay;
-            set
-            {
-
-                ThrowIfNegative(value);
-                _retryDelay = value;
-            }
+            get => _restClient.RetryDelay;
+            set => _restClient.RetryDelay = value;
         }
-
 
         /// <summary>
         /// Minimum number of milliseconds between api calls.
@@ -196,153 +174,42 @@ namespace DustyPig.TVDB
         /// </summary>
         public int Throttle
         {
-            get => _throttle;
-            set
-            {
-                ThrowIfNegative(value);
-                _throttle = value;
-            }
+            get => _restClient.Throttle;
+            set => _restClient.Throttle = value;
         }
 
 
 
-        private static void ThrowIfNegative(int value)
+        internal async Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken)
         {
-#if NET8_0_OR_GREATER
-            ArgumentOutOfRangeException.ThrowIfNegative(value);
-#else
-        if (value < 0)
-            throw new ArgumentOutOfRangeException(nameof(value), value, $"{nameof(value)} ('{value}') must be a non-negative value.");
-#endif
+            var response = await _restClient.GetAsync<Response<T>>(subUrl, _headers, cancellationToken).ConfigureAwait(false);
+            return FlattenResponse<T>(response);
         }
 
-        private Task WaitForThrottle(CancellationToken cancellationToken)
+
+        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken) =>
+            GetAsync<T>(AddQuery(subUrl, $"page={page}"), cancellationToken);
+
+
+        internal async Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken)
         {
-            if (_throttle > 0)
-            {
-                var wait = (_nextCall - DateTime.Now).Milliseconds;
-                if (wait > 0)
-                    return Task.Delay(wait, cancellationToken);
-            }
-            return Task.CompletedTask;
+            var response = await _restClient.PostAsync<Response<T>>(subUrl, data, _headers, cancellationToken).ConfigureAwait(false);
+            return FlattenResponse<T>(response);
         }
 
-        private void SetNextCall()
+
+
+        internal static Response<T> FlattenResponse<T>(REST.Response<Response<T>> response)
         {
-            if (_throttle > 0)
-                _nextCall = DateTime.Now.AddMilliseconds(_throttle);
+            var ret = response.Data;
+            ret.Error = response.Error;
+            ret.Success = response.Success;
+            ret.RawContent = response.RawContent;
+            ret.ReasonPhrase = response.ReasonPhrase;
+            ret.StatusCode = response.StatusCode;
+            ret.Success = response.Success;
+            return ret;
         }
-
-
-        private HttpRequestMessage CreateRequest(HttpMethod method, string url, object data)
-        {
-            var request = new HttpRequestMessage(method, url);
-
-            foreach (var header in _headers)
-                request.Headers.TryAddWithoutValidation(header.Key, header.Value);
-
-            if (data != null)
-                request.Content = new StringContent(JsonSerializer.Serialize(data, _jsonSerializerOptions), Encoding.UTF8, "application/json");
-
-            return request;
-        }
-
-
-        private async Task<Response<T>> GetResponseAsync<T>(HttpMethod method, string subUrl, object data, CancellationToken cancellationToken)
-        {
-            string content = null;
-            HttpStatusCode? statusCode = null;
-            string reasonPhrase = null;
-            int previousTries = 0;
-            var retryAfter = TimeSpan.Zero;
-            while (true)
-            {
-                try
-                {
-                    if (_throttle > 0)
-                        await WaitForThrottle(cancellationToken).ConfigureAwait(false);
-                    using var request = CreateRequest(method, subUrl, data);
-                    using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    statusCode = response.StatusCode;
-                    reasonPhrase = response.ReasonPhrase;
-                    retryAfter = response.Headers.RetryAfter?.Delta ?? TimeSpan.Zero;
-
-                    if (response.IsSuccessStatusCode || IncludeRawContentInResponse)
-                        content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-
-                    response.EnsureSuccessStatusCode();
-                    SetNextCall();
-
-                    var ret = JsonSerializer.Deserialize<Response<T>>(content, _jsonSerializerOptions);
-                    ret.ReasonPhrase = reasonPhrase;
-                    ret.Success = true;
-                    ret.RawContent = IncludeRawContentInResponse ? content : null;
-                    ret.StatusCode = statusCode;
-                    return ret;
-                }
-                catch (Exception ex)
-                {
-                    SetNextCall();
-
-                    //If statusCode == null, there was a network error, retries are permitted
-                    //If statusCode == HttpStatusCode.TooManyRequests, retries are also permitted
-                    if (previousTries < RetryCount && (statusCode == null || statusCode == HttpStatusCode.TooManyRequests))
-                    {
-                        try
-                        {
-                            int delay = Math.Max(0, Math.Max(RetryDelay, retryAfter.Milliseconds));
-                            if (delay > 0)
-                                await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
-                        }
-                        catch
-                        {
-                            return BuildErrorResponse(ex);
-                        }
-                        previousTries++;
-                    }
-                    else
-                    {
-                        return BuildErrorResponse(ex);
-                    }
-                }
-            }
-
-            Response<T> BuildErrorResponse(Exception ex)
-            {
-                var ret = new Response<T>
-                {
-                    Error = ex,
-                    StatusCode = statusCode,
-                    ReasonPhrase = reasonPhrase,
-                    RawContent = IncludeRawContentInResponse ? content : null
-                };
-
-                if (AutoThrowIfError)
-                    ret.ThrowIfError();
-
-                return ret;
-            }
-        }
-
-
-
-
-
-        internal Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken) =>
-            GetResponseAsync<T>(HttpMethod.Get, subUrl, null, cancellationToken);
-
-        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken)
-        {
-            string pagedUrl = AddQuery(subUrl, $"page={page}");
-            return GetResponseAsync<T>(HttpMethod.Get, pagedUrl, null, cancellationToken);
-        }
-
-        internal Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken) =>
-            GetResponseAsync<T>(HttpMethod.Post, subUrl, data, cancellationToken);
-
-
-
-
 
 
         internal static string AddQuery(string url, string q)
