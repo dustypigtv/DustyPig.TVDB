@@ -25,6 +25,6 @@ namespace DustyPig.TVDB.Models
         {
             if (!Success)
                 throw Error;
-        }        
+        }
     }
 }
