@@ -183,18 +183,20 @@ namespace DustyPig.TVDB
         internal async Task<Response<T>> GetAsync<T>(string subUrl, CancellationToken cancellationToken)
         {
             var response = await _restClient.GetAsync<Response<T>>(subUrl, _headers, cancellationToken).ConfigureAwait(false);
-            return FlattenResponse<T>(response);
+            return FlattenResponse(response);
         }
 
 
-        internal Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken) =>
-            GetAsync<T>(AddQuery(subUrl, $"page={page}"), cancellationToken);
-
+        internal async Task<Response<T>> GetAsync<T>(string subUrl, int page, CancellationToken cancellationToken)
+        {
+            var response = await _restClient.GetAsync<Response<T>>(AddQuery(subUrl, $"page={page}"), _headers, cancellationToken).ConfigureAwait(false);
+            return FlattenResponse(response);
+        }
 
         internal async Task<Response<T>> PostAsync<T>(string subUrl, object data, CancellationToken cancellationToken)
         {
             var response = await _restClient.PostAsync<Response<T>>(subUrl, data, _headers, cancellationToken).ConfigureAwait(false);
-            return FlattenResponse<T>(response);
+            return FlattenResponse(response);
         }
 
 
@@ -202,6 +204,7 @@ namespace DustyPig.TVDB
         internal static Response<T> FlattenResponse<T>(REST.Response<Response<T>> response)
         {
             var ret = response.Data;
+            ret ??= new();
             ret.Error = response.Error;
             ret.Success = response.Success;
             ret.RawContent = response.RawContent;
