@@ -28,10 +28,10 @@ namespace DustyPig.TVDB.Clients
             string url = $"series/{id}/artworks";
 
             if (!string.IsNullOrEmpty(lang))
-                url += (url.Contains("?") ? "&" : "?") + $"lang={Uri.EscapeDataString(lang)}";
+                url += (url.Contains('?') ? "&" : "?") + $"lang={Uri.EscapeDataString(lang)}";
 
             if (type != null && type.Value > 0 && type.Value < 4)
-                url += (url.Contains("?") ? "&" : "?") + $"type={type}";
+                url += (url.Contains('?') ? "&" : "?") + $"type={type}";
 
             return _client.GetAsync<SeriesExtendedRecord>(url, cancellationToken);
         }

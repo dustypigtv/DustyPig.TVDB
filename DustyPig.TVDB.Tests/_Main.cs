@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 namespace DustyPig.TVDB.Tests
 {
     [TestClass]
+#pragma warning disable IDE1006 // Naming Styles
     public class _Main
+#pragma warning restore IDE1006 // Naming Styles
     {
 
         const string ENV_KEY_VARIABLE = "TVDB_API_KEY";
