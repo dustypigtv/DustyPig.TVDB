@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 
 namespace DustyPig.TVDB.Models
 {
@@ -17,7 +13,7 @@ namespace DustyPig.TVDB.Models
 
         public bool Success { get; set; }
 
-        public HttpStatusCode StatusCode { get; set; }
+        public HttpStatusCode? StatusCode { get; set; }
 
         public string ReasonPhrase { get; set; }
 
