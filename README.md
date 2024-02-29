@@ -2,4 +2,4 @@
 
 Nuget: https://www.nuget.org/packages/DustyPig.TVDB
 
-TVDB REST api used for Dusty Pig.
+TVDB API client used for Dusty Pig.
