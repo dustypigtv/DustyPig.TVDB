@@ -20,7 +20,7 @@ namespace DustyPig.TVDB.Models
 
         public List<string> OverviewTranslations { get; set; } = [];
 
-        public int PrimaryCompanyType { get; set; }
+        public int? PrimaryCompanyType { get; set; }
 
         public string Slug { get; set; }
 
