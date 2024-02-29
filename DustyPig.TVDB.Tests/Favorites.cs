@@ -9,8 +9,8 @@ namespace DustyPig.TVDB.Tests
         [TestMethod]
         public async Task Get()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Favorites.GetAsync();
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Favorites.GetAsync();
             ret.ThrowIfError();
         }
 
@@ -20,7 +20,7 @@ namespace DustyPig.TVDB.Tests
         //[TestMethod]
         //public async Task Post()
         //{
-        //    await _Main.WaitForToken();
+        //    var client = await _Main.GetClientAsync();
         //    var ret = await _Main.ApiClient.Favorites.AddNewAsync(new Models.FavoriteRecord
         //    {
         //        Series = 279121

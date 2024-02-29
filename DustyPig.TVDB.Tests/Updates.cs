@@ -9,8 +9,8 @@ namespace DustyPig.TVDB.Tests
         [TestMethod]
         public async Task GetAll()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Updates.GetAsync(DateTime.Now.AddDays(-1));
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Updates.GetAsync(DateTime.Now.AddDays(-1));
             ret.ThrowIfError();
         }
     }

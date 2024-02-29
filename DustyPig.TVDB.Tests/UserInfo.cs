@@ -9,16 +9,16 @@ namespace DustyPig.TVDB.Tests
         [TestMethod]
         public async Task Get()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.UserInfo.GetAsync();
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.UserInfo.GetAsync();
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetById()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.UserInfo.GetAsync(2328011);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.UserInfo.GetAsync(2328011);
             ret.ThrowIfError();
         }
 

@@ -9,48 +9,48 @@ namespace DustyPig.TVDB.Tests
         [TestMethod]
         public async Task GetAll()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.GetAllAsync();
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.GetAllAsync();
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task Get()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.GetAsync(3033);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.GetAsync(3033);
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetExtended()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.GetExtendedAsync(3033);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.GetExtendedAsync(3033);
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task Filter()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.FilterAsync("US", "eng", 2012);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.FilterAsync("US", "eng", 2012);
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetSlug()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.GetAsync("the-avengers");
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.GetAsync("the-avengers");
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetTranslation()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Movies.GetTranslationAsync(2022, "eng");
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Movies.GetTranslationAsync(2022, "eng");
             ret.ThrowIfError();
         }
 

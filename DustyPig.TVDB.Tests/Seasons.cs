@@ -9,40 +9,40 @@ namespace DustyPig.TVDB.Tests
         [TestMethod]
         public async Task GetAll()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Seasons.GetAllAsync();
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Seasons.GetAllAsync();
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task Get()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Seasons.GetAsync(10);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Seasons.GetAsync(10);
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetExtended()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Seasons.GetExtendedAsync(10);
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Seasons.GetExtendedAsync(10);
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetAllTypes()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Seasons.GetAllTypesAsync();
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Seasons.GetAllTypesAsync();
             ret.ThrowIfError();
         }
 
         [TestMethod]
         public async Task GetTranslation()
         {
-            await _Main.WaitForToken();
-            var ret = await _Main.ApiClient.Seasons.GetTranslationAsync(10, "ita");
+            var client = await _ClientFactory.GetClientAsync();
+            var ret = await client.Seasons.GetTranslationAsync(10, "ita");
             ret.ThrowIfError();
         }
 
