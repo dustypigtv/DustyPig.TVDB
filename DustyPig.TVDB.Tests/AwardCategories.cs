@@ -10,7 +10,7 @@ namespace DustyPig.TVDB.Tests
         public async Task Get()
         {
             var client = await _ClientFactory.GetClientAsync();
-            var ret = await client.AwardCategories.GetAsync(1);
+            var ret = await client.AwardCategories.GetAsync(2);
             ret.ThrowIfError();
         }
 
@@ -18,7 +18,7 @@ namespace DustyPig.TVDB.Tests
         public async Task GetExtended()
         {
             var client = await _ClientFactory.GetClientAsync();
-            var ret = await client.AwardCategories.GetExtendedAsync(1);
+            var ret = await client.AwardCategories.GetExtendedAsync(2);
             ret.ThrowIfError();
         }
     }
