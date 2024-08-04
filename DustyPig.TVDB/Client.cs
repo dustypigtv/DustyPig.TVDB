@@ -2,6 +2,7 @@ using DustyPig.TVDB.Clients;
 using DustyPig.TVDB.Models;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,12 +14,43 @@ namespace DustyPig.TVDB
         public const string API_AS_OF_DATE = "02/29/2024";
 
 
-        private readonly REST.Client _restClient = new("https://api4.thetvdb.com/v4/");
+        private readonly REST.Client _restClient;// = new("https://api4.thetvdb.com/v4/");
         private readonly Dictionary<string, string> _headers = [];
 
 
 
+        /// <summary>
+        /// Creates a configuration that uses its own internal <see cref="HttpClient"/>. When using this constructor, <see cref="Dispose"/> should be called.
+        /// </summary>
         public Client()
+        {
+            _restClient = new() { BaseAddress = new("https://api4.thetvdb.com/v4/") };
+            InitEndpoints();
+        }
+
+
+        /// <summary
+        /// Creates a configurtion that uses a shared <see cref="HttpClient"/>
+        /// </summary
+        /// <param name="httpClient">The shared <see cref="HttpClient"/> this REST configuration should use</param>
+        public Client(HttpClient httpClient)
+        {
+            _restClient = new(httpClient) { BaseAddress = new("https://api4.thetvdb.com/v4/") };
+            InitEndpoints();
+        }
+
+
+
+        public void Dispose()
+        {
+            _restClient.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+
+
+
+        void InitEndpoints()
         {
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
@@ -51,71 +83,65 @@ namespace DustyPig.TVDB
             UserInfo = new UserInfoClient(this);
         }
 
-        public void Dispose()
-        {
-            _restClient.Dispose();
-            GC.SuppressFinalize(this);
-        }
 
 
+        public ArtworkClient Artwork { get; private set; }
 
-        public ArtworkClient Artwork { get; }
+        public ArtworkStatusesClient ArtworkStatuses { get; private set; }
 
-        public ArtworkStatusesClient ArtworkStatuses { get; }
+        public ArtworkTypesClient ArtworkTypes { get; private set; }
 
-        public ArtworkTypesClient ArtworkTypes { get; }
+        public AwardCategoriesClient AwardCategories { get; private set; }
 
-        public AwardCategoriesClient AwardCategories { get; }
+        public AwardsClient Awards { get; private set; }
 
-        public AwardsClient Awards { get; }
+        public CharactersClient Characters { get; private set; }
 
-        public CharactersClient Characters { get; }
+        public CompaniesClient Companies { get; private set; }
 
-        public CompaniesClient Companies { get; }
+        public ContentRatingsClient ContentRatings { get; private set; }
 
-        public ContentRatingsClient ContentRatings { get; }
+        public CountriesClient Countries { get; private set; }
 
-        public CountriesClient Countries { get; }
+        public EntityTypesClient EntityTypes { get; private set; }
 
-        public EntityTypesClient EntityTypes { get; }
+        public EpisodesClient Episodes { get; private set; }
 
-        public EpisodesClient Episodes { get; }
+        public FavoritesClient Favorites { get; private set; }
 
-        public FavoritesClient Favorites { get; }
+        public GendersClient Genders { get; private set; }
 
-        public GendersClient Genders { get; }
+        public GenresClient Genres { get; private set; }
 
-        public GenresClient Genres { get; }
+        public InspirationTypesClient InspirationTypes { get; private set; }
 
-        public InspirationTypesClient InspirationTypes { get; }
+        public LanguagesClient Languages { get; private set; }
 
-        public LanguagesClient Languages { get; }
+        public ListsClient Lists { get; private set; }
 
-        public ListsClient Lists { get; }
+        public LoginClient Login { get; private set; }
 
-        public LoginClient Login { get; }
+        public MoviesClient Movies { get; private set; }
 
-        public MoviesClient Movies { get; }
+        public MovieStatusesClient MovieStatuses { get; private set; }
 
-        public MovieStatusesClient MovieStatuses { get; }
+        public PeopleClient People { get; private set; }
 
-        public PeopleClient People { get; }
+        public PeopleTypesClient PeopleTypes { get; private set; }
 
-        public PeopleTypesClient PeopleTypes { get; }
+        public SearchClient Search { get; private set; }
 
-        public SearchClient Search { get; }
+        public SeasonsClient Seasons { get; private set; }
 
-        public SeasonsClient Seasons { get; }
+        public SeriesClient Series { get; private set; }
 
-        public SeriesClient Series { get; }
+        public SeriesStatusesClient SeriesStatuses { get; private set; }
 
-        public SeriesStatusesClient SeriesStatuses { get; }
+        public SourceTypesClient SourceTypes { get; private set; }
 
-        public SourceTypesClient SourceTypes { get; }
+        public UpdatesClient Updates { get; private set; }
 
-        public UpdatesClient Updates { get; }
-
-        public UserInfoClient UserInfo { get; }
+        public UserInfoClient UserInfo { get; private set; }
 
 
 
