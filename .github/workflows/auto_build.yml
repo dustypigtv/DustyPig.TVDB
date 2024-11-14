@@ -1,7 +1,6 @@
 name: Auto-Build
 on:
-  push:
-    branches: [ master ]
+  push
 
 env:
     TVDB_API_KEY: ${{ secrets.TVDB_API_KEY }}
@@ -19,10 +18,7 @@ jobs:
       - name: Setup .NET 
         uses: actions/setup-dotnet@v3
         with: 
-          dotnet-version: |
-            6
-            7
-            8
+          dotnet-version: 9
 
       - name: Test
         run: dotnet test -c release
