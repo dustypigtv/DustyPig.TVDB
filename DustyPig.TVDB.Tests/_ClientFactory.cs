@@ -31,7 +31,7 @@ namespace DustyPig.TVDB.Tests
         }
 
 
-        static readonly Client _client = new(new(new SimpleThrottle(TimeSpan.FromSeconds(1)))) { RetryCount = 3 };
+        static readonly Client _client = new(new(new SimpleThrottle(TimeSpan.FromSeconds(1)))) { RetryCount = 10 };
         static readonly SemaphoreSlim _semaphore = new(1);
         static bool _loggedIn = false;
 
