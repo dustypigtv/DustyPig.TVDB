@@ -1,3 +1,4 @@
+using DustyPig.REST;
 using DustyPig.TVDB.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -30,7 +31,7 @@ namespace DustyPig.TVDB.Tests
         }
 
 
-        static readonly Client _client = new() { Throttle = 1000 };
+        static readonly Client _client = new(new(new SimpleThrottle(TimeSpan.FromSeconds(1)))) { RetryCount = 3 };
         static readonly SemaphoreSlim _semaphore = new(1);
         static bool _loggedIn = false;
 
@@ -56,32 +57,6 @@ namespace DustyPig.TVDB.Tests
 
 
 
-
-        //public static Client ApiClient { get; } = new Client() { Throttle = 100 };
-        //static bool LoggedIn = false;
-        //static bool LoggingIn = false;
-
-        //public static async Task WaitForToken()
-        //{
-        //    ApiClient.IncludeRawContentInResponse = true;
-
-        //    while (!LoggedIn)
-        //    {
-        //        if (!LoggingIn)
-        //        {
-        //            LoggingIn = true;
-
-        //            await ApiClient.Login.LoginAsync(new Credentials
-        //            {
-        //                Apikey = GetEnvVar(ENV_KEY_VARIABLE),
-        //                Pin = GetEnvVar(ENV_PIN_VARIABLE)
-        //            });
-
-        //            LoggedIn = true;
-        //        }
-        //        await Task.Delay(100);
-        //    }
-        //}
 
     }
 }

@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace DustyPig.TVDB
 {
-    public class Client : IDisposable
+    public class Client
     {
         public const string API_VERSION = "4.7.9";
         public const string API_AS_OF_DATE = "02/29/2024";
 
+        private static readonly HttpClient _internalHttpClient = new();
 
         private readonly REST.Client _restClient;// = new("https://api4.thetvdb.com/v4/");
         private readonly Dictionary<string, string> _headers = [];
@@ -20,31 +21,22 @@ namespace DustyPig.TVDB
 
 
         /// <summary>
-        /// Creates a configuration that uses its own internal <see cref="HttpClient"/>. When using this constructor, <see cref="Dispose"/> should be called.
+        /// Creates a configuration that uses its own internal <see cref="HttpClient"/>
         /// </summary>
         public Client()
         {
-            _restClient = new() { BaseAddress = new("https://api4.thetvdb.com/v4/") };
+            _restClient = new(_internalHttpClient) { BaseAddress = new("https://api4.thetvdb.com/v4/") };
             InitEndpoints();
         }
 
 
         /// <summary
-        /// Creates a configurtion that uses a shared <see cref="HttpClient"/>
+        /// Creates a configurtion that uses a user supplied <see cref="HttpClient"/>
         /// </summary
-        /// <param name="httpClient">The shared <see cref="HttpClient"/> this REST configuration should use</param>
         public Client(HttpClient httpClient)
         {
             _restClient = new(httpClient) { BaseAddress = new("https://api4.thetvdb.com/v4/") };
             InitEndpoints();
-        }
-
-
-
-        public void Dispose()
-        {
-            _restClient.Dispose();
-            GC.SuppressFinalize(this);
         }
 
 
@@ -170,39 +162,19 @@ namespace DustyPig.TVDB
         /// 1. There is an error connecting to the server (such as a network layer error).
         /// </para>
         /// <para>
-        /// 2. The connection succeeded, but the server sent HttpStatusCode.TooManyRequests (429). 
-        ///    In this case, the client will attempt to get the RetryAfter header, and if found, 
-        ///    the delay will be the maximum of the header and the <see cref="RetryDelay"/>. 
-        ///    Otherwise, the retry delay will just be <see cref="RetryDelay"/>.
+        /// 2. The connection succeeded, but the server sent HttpStatusCode.TooManyRequests
+        ///    (429). In this case, the client will attempt to get the RetryAfter header, and
+        ///    if found, the delay will use that value. If not found, exponential backoff with
+        ///    jitter will be used.
         /// </para>
         /// </remarks>
-        public int RetryCount
+        public ushort RetryCount
         {
             get => _restClient.RetryCount;
             set => _restClient.RetryCount = value;
         }
 
-        /// <summary>
-        /// Number of milliseconds between retries.
-        /// <br />
-        /// Default = 0
-        /// </summary>
-        public int RetryDelay
-        {
-            get => _restClient.RetryDelay;
-            set => _restClient.RetryDelay = value;
-        }
-
-        /// <summary>
-        /// Minimum number of milliseconds between api calls.
-        /// <br />
-        /// Default = 0
-        /// </summary>
-        public int Throttle
-        {
-            get => _restClient.Throttle;
-            set => _restClient.Throttle = value;
-        }
+        
 
 
 
