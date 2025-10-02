@@ -1,6 +1,6 @@
 using DustyPig.TVDB.Clients;
 using DustyPig.TVDB.Models;
-using System;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -10,40 +10,28 @@ namespace DustyPig.TVDB
 {
     public class Client
     {
+        public const string BASE_ADDRESS = "https://api4.thetvdb.com/v4/";
+
         public const string API_VERSION = "4.7.9";
         public const string API_AS_OF_DATE = "02/29/2024";
 
         private static readonly HttpClient _internalHttpClient = new();
 
-        private readonly REST.Client _restClient;// = new("https://api4.thetvdb.com/v4/");
+        private readonly REST.Client _restClient;
         private readonly Dictionary<string, string> _headers = [];
 
 
 
-        /// <summary>
-        /// Creates a configuration that uses its own internal <see cref="HttpClient"/>
-        /// </summary>
-        public Client()
+        public Client() : this(null, null) { }
+
+        public Client(HttpClient httpClient) : this(httpClient, null) { }
+
+        public Client(ILogger<Client> logger) : this(null, logger) { }
+
+        public Client(HttpClient httpClient, ILogger<Client> logger)
         {
-            _restClient = new(_internalHttpClient) { BaseAddress = new("https://api4.thetvdb.com/v4/") };
-            InitEndpoints();
-        }
+            _restClient = new(httpClient ?? _internalHttpClient, logger) { BaseAddress = new(BASE_ADDRESS) };
 
-
-        /// <summary
-        /// Creates a configurtion that uses a user supplied <see cref="HttpClient"/>
-        /// </summary
-        public Client(HttpClient httpClient)
-        {
-            _restClient = new(httpClient) { BaseAddress = new("https://api4.thetvdb.com/v4/") };
-            InitEndpoints();
-        }
-
-
-
-
-        void InitEndpoints()
-        {
             Artwork = new ArtworkClient(this);
             ArtworkStatuses = new ArtworkStatusesClient(this);
             ArtworkTypes = new ArtworkTypesClient(this);

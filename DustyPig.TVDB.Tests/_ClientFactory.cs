@@ -31,7 +31,7 @@ namespace DustyPig.TVDB.Tests
         }
 
 
-        static readonly Client _client = new(new(new SlidingRateThrottle(1, TimeSpan.FromSeconds(0.25))));
+        static readonly Client _client = new(new System.Net.Http.HttpClient(new SlidingRateThrottle(1, TimeSpan.FromSeconds(0.25))));
         static readonly SemaphoreSlim _semaphore = new(1);
         static bool _loggedIn = false;
 
