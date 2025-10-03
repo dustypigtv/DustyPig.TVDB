@@ -22,7 +22,8 @@ namespace DustyPig.TVDB.Clients
         public void SetAuthToken(string token)
         {
             _headers.Clear();
-            _headers.Add("Authorization", "Bearer " + token);
+            if(!string.IsNullOrWhiteSpace(token))
+                _headers.Add("Authorization", "Bearer " + token);
         }
 
 
